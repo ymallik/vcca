@@ -1,0 +1,1166 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Identity</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="shortcut icon" href="./images/Logo.png" />
+    <link rel="stylesheet" href="./css/minton_css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./css/site.css" />
+    <style type="text/css">
+        .navbar-nav {
+            float: right !important;
+        }
+    </style>
+    <link href="./css/minton_css/core.css" rel="stylesheet" type="text/css">
+    <link href="./css/minton_css/icons.css" rel="stylesheet" type="text/css">
+    <link href="./css/minton_css/icons/ionicons/css/ionicons.css" rel="stylesheet" type="text/css">
+    <link href="./css/minton_css/components.css" rel="stylesheet" type="text/css">
+    <link href="./css/minton_css/menu_light.css" rel="stylesheet" type="text/css">
+    <link href="./css/minton_css/responsive.css" rel="stylesheet" type="text/css">
+    <link href="./css/minton_css/pages.css" rel="stylesheet" />
+    <link href="./css/StyleGuide.css" rel="stylesheet" />
+    <link href="./css/TABC-Styles.css" rel="stylesheet" />
+
+    <link href="./lib/kendo-ui/styles/kendo.bootstrap-v4.min.css" rel="stylesheet" />
+    <link href="./lib/kendo-ui/styles/kendo.common.min.css" rel="stylesheet" />
+    <script src="https://kendo.cdn.telerik.com/2020.2.617/js/jquery.min.js"></script>
+    <link href="./lib/kendo-ui/styles/kendo.default.min.css" rel="stylesheet" />
+    <script src="./lib/kendo-ui/js/jszip.min.js"></script>
+    <script src="./lib/kendo-ui/js/kendo.all.min.js"></script>
+    <script src="./lib/kendo-ui/js/kendo.aspnetmvc.min.js"></script>
+</head>
+<body>
+    <div class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header pull-left">
+                <a href="/">
+                    <span class="navbar-brand">
+                        <img src="./images/Logo.png" height="32" width="32" class="icon-banner">
+                        Account
+                    </span>
+                </a>
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <div class="m-t-50 m-b-80">
+        <div class="content">
+            <div class="container p-lr-5 m-4">
+                
+
+<style>
+    .field-validation-error {
+        color: #7d2c38 !important;
+        font-weight: 600;
+        background-color: #fcdde2;
+        border-color: #fbcfd6;
+        position: relative;
+        padding: .25rem .9rem;
+        margin-bottom: 1rem;
+        margin-top: .25rem;
+        border: 1px solid transparent;
+        border-radius: .25rem;
+        width: -webkit-fill-available;
+    }
+
+    ul {
+        padding-left: 17px;
+    }
+
+    .inputGroupCustom {
+        font-size: 2rem;
+        color: black;
+    }
+
+    /* The message box is shown when the user clicks on the password field */
+    #passwordValdiationMessage {
+        display: none;
+        background: #f1f1f1;
+        color: #000;
+        position: relative;
+        padding: 10px;
+        margin-top: 5px;
+    }
+
+        #passwordValdiationMessage p {
+            padding: 0px;
+            font-size: normal;
+        }
+
+    /* The message box is shown when the user clicks on the password field */
+    #passwordConfirmValdiationMessage {
+        display: none;
+        background: #f1f1f1;
+        color: #000;
+        position: relative;
+        padding: 10px;
+        margin-top: 5px;
+    }
+
+        #passwordConfirmValdiationMessage p {
+            padding: 0px;
+            font-size: normal;
+        }
+
+    /* Add a green text color and a checkmark when the requirements are right */
+    .valid {
+        color: green;
+    }
+
+        .valid:before {
+            padding-right: 5px;
+            left: -35px;
+            content: "✔";
+        }
+
+    /* Add a red text color and an "x" when the requirements are wrong */
+    .invalid {
+        color: red;
+    }
+
+        .invalid:before {
+            padding-right:5px;
+            left: -35px;
+            content: "✖";
+        }
+</style>
+
+<link type="text/css" rel="stylesheet" href="/Content/minton_css/custom.css" />
+<script src="/Scripts/Custom/Validations.js"></script>
+<script src="/Scripts/jquery.validate.min.js"></script>
+<script src="/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="/Scripts/Custom/trippleddlAdapters.js"></script>
+<script src="/Scripts/Custom/OCSUP.js"></script>
+<script src='https://www.google.com/recaptcha/api.js'></script>
+
+<script type="text/javascript">
+    var usernameRegex = /^(?=.{6,})([a-zA-Z]*_?[a-zA-Z]{1,}\.?[a-zA-Z]{1,}|[a-zA-Z]*\.?[a-zA-Z]{1,}_?[a-zA-Z]{1,})$/,
+        ///^(?=[a-zA-Z._]{6,30}$)(?!.*[_.]{2})[^_.].*[^_.]$/,
+        emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[0-9a-zA-Z!@#$%^&*]{8,}$/;
+
+    $(document).ready(function () {
+        //$("#txtPhone").mask("123456789123456");
+
+        $("#txtUserName").focus(function () {
+            $("#lblUserName").text('');
+        });
+
+        $("#txtUserName").on('change input', function () {
+            var username = $("#txtUserName").val(),
+            usernameTestResult = usernameRegex.test(username);
+            debugger;
+            if (usernameTestResult) {
+                $("#errorUserName").hide();
+                $("#errorUserName").text('');
+            }
+            else {
+                $("#errorUserName").show();
+                $("#errorUserName").text('Username must be at least six characters long and can have up to five letters and one underscore (_) or period (.) in the middle. Do not use spaces. Examples: John.Doe or John_Doe.');
+            }
+        });
+
+        $("#txtEmail").focus(function () {
+            $("#lblEmail").text('');
+        });
+
+        //$("#txtPassword").on('change input', function () {
+        //    var password = $("#txtPassword").val(),
+        //        passwordTestResult = passwordRegex.test(password),
+        //        confirmPassword = $("#txtConPassword").val();
+
+        //    if (password != "") {
+        //        document.getElementById("passwordValdiationMessage").style.display = "block";
+        //        $("#errorPassword").hide();
+        //        $("#errorPassword").text('');
+
+        //        //if (passwordTestResult) {
+        //        //    $("#errorPassword").hide();
+        //        //    $("#errorPassword").text('');
+
+        //        if (confirmPassword != "") {
+        //            if (password != confirmPassword) {
+        //                $("#errorPassword").show();
+        //                $("#errorPassword").text('Passwords do not match');
+        //            }
+        //            else {
+        //                $("#errorPassword").hide();
+        //                $("#errorPassword").text('');
+        //            }
+        //        }
+        //        //}
+        //        //else {
+        //        //    $("#errorPassword").show();
+        //        //    $("#errorPassword").text('Password must be at least eight characters long. It must contain at least one uppercase letter, one lowercase letter, one number and one symbol.');
+        //        //}
+        //    }
+        //    else {
+        //        document.getElementById("passwordValdiationMessage").style.display = "none";
+        //        $("#errorPassword").show();
+        //        $("#errorPassword").text("Please enter Password");
+        //    }
+        //});
+
+        //$("#txtConPassword").on('change input', function () {
+        //    var confirmPassword = $("#txtConPassword").val(),
+        //        passwordTestResult = passwordRegex.test(confirmPassword),
+        //        password = $("#txtPassword").val();
+
+        //    if (confirmPassword != "") {
+        //        document.getElementById("passwordConfirmValdiationMessage").style.display = "block";
+        //        $("#errorConPassword").hide();
+        //        $("#errorConPassword").text('');
+
+        //        //if (passwordTestResult) {
+        //        //    $("#errorConPassword").hide();
+        //        //    $("#errorConPassword").text('');
+
+        //        if (password != "") {
+        //            if (password != confirmPassword) {
+        //                $("#errorConPassword").show();
+        //                $("#errorConPassword").text('Passwords do not match');
+        //            }
+        //            else {
+        //                $("#errorConPassword").hide();
+        //                $("#errorConPassword").text('');
+        //            }
+        //        }
+        //        //}
+        //        //else {
+        //        //    $("#errorConPassword").show();
+        //        //    $("#errorConPassword").text('Confirm Password must be at least eight characters long. It must contain at least one uppercase letter, one lowercase letter, one number and one symbol.');
+        //        //}
+        //    }
+        //    else {
+        //        document.getElementById("passwordConfirmValdiationMessage").style.display = "none";
+        //        $("#errorConPassword").show();
+        //        $("#errorConPassword").text("Please enter Confirm Password");
+        //    }
+        //});
+
+        $("#txtEmailInput").on('change input', function () {
+            var email = $("#txtEmailInput").val(),
+                emailTestResult = emailRegex.test(email),
+                confirmEmail = $("#txtConfEmail").val();
+
+            if (email != "") {
+                $("#errorEmail").hide();
+                $("#errorEmail").text('');
+
+                if (emailTestResult) {
+                    $("#errorEmail").hide();
+                    $("#errorEmail").text('');
+
+                    if (confirmEmail != "") {
+                        if (email != confirmEmail) {
+                            $("#errorEmail").show();
+                            $("#errorEmail").text('Emails do not match.');
+                        }
+                        else {
+                            $("#errorEmail").hide();
+                            $("#errorEmail").text('');
+                        }
+                    }
+                }
+                else {
+                    $("#errorEmail").show();
+                    $("#errorEmail").text('Please enter a valid email');
+                }
+            }
+            else {
+                $("#errorEmail").show();
+                $("#errorEmail").text("Please enter Email");
+            }
+        });
+
+        $("#txtConfEmail").on('change input', function () {
+            var confirmEmail = $("#txtConfEmail").val(),
+                email = $("#txtEmailInput").val(),
+                emailTestResult = emailRegex.test(confirmEmail);
+
+            if (confirmEmail != "") {
+                $("#errorConfEmail").hide();
+                $("#errorConfEmail").text('');
+
+                if (emailTestResult) {
+                    $("#errorConfEmail").hide();
+                    $("#errorConfEmail").text('');
+
+                    if (email != "") {
+                        if (email != confirmEmail) {
+                            $("#errorConfEmail").show();
+                            $("#errorConfEmail").text('Emails do not match.');
+                        }
+                        else {
+                            $("#errorConfEmail").hide();
+                            $("#errorConfEmail").text('');
+                        }
+                    }
+                }
+                else {
+                    $("#errorConfEmail").show();
+                    $("#errorConfEmail").text('Please enter a valid email');
+                }
+            }
+            else {
+                $("#errorConfEmail").show();
+                $("#errorConfEmail").text("Please enter Confirm Email");
+            }
+        });
+
+        $("#txtEmail").keydown(function () {
+            $("#lblEmail").text('');
+            });
+
+        $("#txtEmail").blur(function () {
+                if ($(this).val().indexOf("gov2biz.com") !== -1) {
+                    alert("Domain is not allowed");
+                $(this).focus();
+                    return;
+                }
+
+            $.ajax({
+                type: 'POST',
+                url: '/Apps/CheckEmailExists',
+                headers: { 'RequestVerificationToken': "CfDJ8NJnGX81EGNKpLmppARigAlGWU4YJ6mrbPom4Z3IblQUfJN1fwJm7qSOxInm0RJvIGvwnLpl6ERwfQHVcMvgfB6nIQYvkJWw0CP9m0FrQ1e5PM9Y_p_NsqdMVSDAFsUyz-S6t111uYww9K1FY1c8fsQ" },
+
+                data: { EmailID: $(this).val() },
+                cache: false,
+                success: function (result) {
+                        if (result) {
+                            if (result == 'True') {
+                            $("#lblEmail").text('This Email already exists. Please choose another Email ID.').show();
+                            $("#txtEmail").val('');
+                            }
+                            else {
+                            $("#lblEmail").text('');
+                            }
+                        }
+                    },
+                error: function () {
+
+                    }
+                });
+
+            });
+
+        $("#showPassword").on('click',function () {
+            $("#txtPassword").attr("type", "text");
+        });
+
+        $("#showPassword").on("mouseleave", function () {
+            $("#txtPassword").attr("type", "password");
+        });
+
+        $("#showConfirmPassword").on('click', function () {
+            $("#txtConPassword").attr("type", "text");
+        });
+
+        $("#showConfirmPassword").on("mouseleave", function () {
+            $("#txtConPassword").attr("type", "password");
+        });
+
+        $("#txtUserName").blur(function () {
+            $.ajax({
+                type: 'POST',
+                url: '/Signup/ValidateLoginName',
+                data: { UserName: $(this).val() },
+                headers: { 'RequestVerificationToken': "CfDJ8NJnGX81EGNKpLmppARigAlGWU4YJ6mrbPom4Z3IblQUfJN1fwJm7qSOxInm0RJvIGvwnLpl6ERwfQHVcMvgfB6nIQYvkJWw0CP9m0FrQ1e5PM9Y_p_NsqdMVSDAFsUyz-S6t111uYww9K1FY1c8fsQ" },
+                cache: false,
+                success: function (result) {
+                        if (result) {
+                            if (result == 'True') {
+                            $("#lblUserName").show();
+                            $("#lblUserName").text('This username already exists. Please choose another username.');
+                            $("#txtUserName").val("");
+                            }
+                            else {
+                            $("#lblUserName").text('');
+                            }
+                        }
+                    },
+                error: function () {
+
+                    }
+                });
+
+        });
+
+        var passwordText = document.getElementById("txtPassword");
+        var passwordConfirmText = document.getElementById("txtConPassword");
+        var letter = document.getElementById("letter");
+        var symbol = document.getElementById("symbol");
+        var capital = document.getElementById("capital");
+        var number = document.getElementById("number");
+        var length = document.getElementById("length");
+        var match = document.getElementById("match");
+        var letterConfirm = document.getElementById("letterConfirm");
+        var symbolConfirm = document.getElementById("symbolConfirm");
+        var capitalConfirm = document.getElementById("capitalConfirm");
+        var numberConfirm = document.getElementById("numberConfirm");
+        var lengthConfirm = document.getElementById("lengthConfirm");
+        var matchConfirm = document.getElementById("matchConfirm");
+
+
+        // When the user clicks on the password field, show the message box
+        passwordText.onfocus = function () {
+            $("#errorPassword").hide();
+            $("#errorPassword").text('');
+            document.getElementById("passwordValdiationMessage").style.display = "block";
+        }
+
+        // When the user clicks outside of the password field, hide the message box
+        passwordText.onblur = function () {
+            document.getElementById("passwordValdiationMessage").style.display = "none";
+        }
+
+        // When the user starts to type something inside the password field
+        $("#txtPassword").on("keyup click", function () {
+            // Validate lowercase letters
+            var lowerCaseLetters = /[a-z]/g;
+            if (passwordText.value.match(lowerCaseLetters)) {
+                letter.classList.remove("invalid");
+                letter.classList.add("valid");
+            } else {
+                letter.classList.remove("valid");
+                letter.classList.add("invalid");
+            }
+
+            // Validate capital letters
+            var upperCaseLetters = /[A-Z]/g;
+            if (passwordText.value.match(upperCaseLetters)) {
+                capital.classList.remove("invalid");
+                capital.classList.add("valid");
+            } else {
+                capital.classList.remove("valid");
+                capital.classList.add("invalid");
+            }
+
+            // Validate numbers
+            var numbers = /[0-9]/g;
+            if (passwordText.value.match(numbers)) {
+                number.classList.remove("invalid");
+                number.classList.add("valid");
+            } else {
+                number.classList.remove("valid");
+                number.classList.add("invalid");
+            }
+
+            // Validate symbol
+            var symbolInclude = /[!@#$%^&*]/g;
+            if (passwordText.value.match(symbolInclude)) {
+                symbol.classList.remove("invalid");
+                symbol.classList.add("valid");
+            } else {
+                symbol.classList.remove("valid");
+                symbol.classList.add("invalid");
+            }
+
+            // Validate length
+            if (passwordText.value.length >= 8) {
+                length.classList.remove("invalid");
+                length.classList.add("valid");
+            } else {
+                length.classList.remove("valid");
+                length.classList.add("invalid");
+            }
+
+            // Validate match
+            if (passwordText.value != "") {
+                if (passwordConfirmText.value != "") {
+                    document.getElementById("match").style.display = "block";
+                    if (passwordText.value == passwordConfirmText.value) {
+                        match.classList.remove("invalid");
+                        match.classList.add("valid");
+                    } else {
+                        match.classList.remove("valid");
+                        match.classList.add("invalid");
+                    }
+                }
+                else {
+                    document.getElementById("match").style.display = "none";
+                    match.classList.remove("valid");
+                    match.classList.add("invalid");
+                }
+            }
+            else {
+                document.getElementById("match").style.display = "none";
+                match.classList.remove("valid");
+                match.classList.add("invalid");
+            }
+        });
+
+        // When the user clicks on the password field, show the message box
+        passwordConfirmText.onfocus = function () {
+            $("#errorConPassword").hide();
+            $("#errorConPassword").text('');
+            document.getElementById("passwordConfirmValdiationMessage").style.display = "block";
+        }
+
+        // When the user clicks outside of the password field, hide the message box
+        passwordConfirmText.onblur = function () {
+            document.getElementById("passwordConfirmValdiationMessage").style.display = "none";
+        }
+
+        // When the user starts to type something inside the password field
+        $("#txtConPassword").on("keyup click", function () {
+            // Validate lowercase letters
+            var lowerCaseLetters = /[a-z]/g;
+            if (passwordConfirmText.value.match(lowerCaseLetters)) {
+                letterConfirm.classList.remove("invalid");
+                letterConfirm.classList.add("valid");
+            } else {
+                letterConfirm.classList.remove("valid");
+                letterConfirm.classList.add("invalid");
+            }
+
+            // Validate capital letters
+            var upperCaseLetters = /[A-Z]/g;
+            if (passwordConfirmText.value.match(upperCaseLetters)) {
+                capitalConfirm.classList.remove("invalid");
+                capitalConfirm.classList.add("valid");
+            } else {
+                capitalConfirm.classList.remove("valid");
+                capitalConfirm.classList.add("invalid");
+            }
+
+            // Validate numbers
+            var numbers = /[0-9]/g;
+            if (passwordConfirmText.value.match(numbers)) {
+                numberConfirm.classList.remove("invalid");
+                numberConfirm.classList.add("valid");
+            } else {
+                numberConfirm.classList.remove("valid");
+                numberConfirm.classList.add("invalid");
+            }
+
+            // Validate symbol
+            var symbolInclude = /[!@#$%^&*]/g;
+            if (passwordConfirmText.value.match(symbolInclude)) {
+                symbolConfirm.classList.remove("invalid");
+                symbolConfirm.classList.add("valid");
+            } else {
+                symbolConfirm.classList.remove("valid");
+                symbolConfirm.classList.add("invalid");
+            }
+
+            // Validate length
+            if (passwordConfirmText.value.length >= 8) {
+                lengthConfirm.classList.remove("invalid");
+                lengthConfirm.classList.add("valid");
+            } else {
+                lengthConfirm.classList.remove("valid");
+                lengthConfirm.classList.add("invalid");
+            }
+
+            // Validate match
+            if (passwordConfirmText.value != "") {
+                if (passwordText.value != "") {
+                    document.getElementById("matchConfirm").style.display = "block";
+                    if (passwordText.value == passwordConfirmText.value) {
+                        matchConfirm.classList.remove("invalid");
+                        matchConfirm.classList.add("valid");
+                    } else {
+                        matchConfirm.classList.remove("valid");
+                        matchConfirm.classList.add("invalid");
+                    }
+                }
+                else {
+                    document.getElementById("matchConfirm").style.display = "none";
+                    matchConfirm.classList.remove("valid");
+                    matchConfirm.classList.add("invalid");
+                }
+            }
+            else {
+                document.getElementById("matchConfirm").style.display = "none";
+                matchConfirm.classList.remove("valid");
+                matchConfirm.classList.add("invalid");
+            }
+        });
+    });
+
+    function ValidateForm() {
+            var isError = false,
+                UserName = $("#txtUserName").val(),
+                FName = $('#txtFName').val(),
+                LName = $('#txtLName').val(),
+                Email = $("#txtEmailInput").val(),
+                EmailConfirm = $('#txtConfEmail').val(),
+                Phone = $("#txtPhone").val(),
+                //Carrier = $('#ddCarrier').val(),
+                Password = $("#txtPassword").val(),
+                PasswordConfirm = $('#txtConPassword').val(),
+                Question1 = $('#ddlSecQuest1').val(),
+                Question2 = $('#ddlSecQuest2').val(),
+                Question3 = $('#ddlSecQuest3').val(),
+                Amswer1 = $('#txtAmswer1').val(),
+                Amswer2 = $('#txtAmswer2').val(),
+                Amswer3 = $('#txtAmswer3').val(),
+                username = $("#txtUserName").val(),
+                usernameTestResult = usernameRegex.test(UserName),
+                passwordTestResult = passwordRegex.test(Password),
+                confirmPasswordTestResult = passwordRegex.test(PasswordConfirm),
+                emailTestResult = emailRegex.test(Email),
+                confirmEmailTestResult = emailRegex.test(EmailConfirm);
+
+
+            $("#lblUserName").text('');
+            $("#lblFirstNameMsg").text('');
+            $("#lblLastNameMsg").text('');
+            $("#lblEmail").text('');
+
+            if (UserName == "") {
+                $("#errorUserName").show();
+                $("#errorUserName").text("Please enter Username");
+                isError = true;
+            }
+            else {
+                if (usernameTestResult) {
+                    $("#errorUserName").hide();
+                    $("#errorUserName").text('');
+                }
+                else {
+                    isError = true;
+                    $("#errorUserName").show();
+                    $("#errorUserName").text('Username must be at least six characters long and can have up to five letters and one underscore (_) or period (.) in the middle. Do not use spaces. Examples: John.Doe or John_Doe.');
+                }
+            }
+
+            if (Phone != "" || Phone.length>0) {
+                $("#errorPhone").hide();
+                $("#errorPhone").text("");
+                var phoneRegex = /[0-9]{10,15}/;
+                if (!Phone.match(phoneRegex)) {
+                    $("#errorPhone").show();
+                    $("#errorPhone").text("Input a phone number using only digits (special characters are not allowed). If you have a US phone number then input your 10 - digit phone number, for example: 5690245876. If you have a Non - US phone number then input your country code and phone number, for example: 917648817248.");
+                    isError = true;
+                }
+                else {
+                    $("#errorPhone").hide();
+                    $("#errorPhone").text("");
+                }
+            }
+
+            //if (Carrier == "") {
+            //    $("#errorCarrier").show();
+            //    $("#errorCarrier").text("Please enter Carrier");
+            //    isError = true;
+            //}
+            //else {
+            //    $("#errorCarrier").hide();
+            //    $("#errorCarrier").text("");
+
+            //}
+
+            if (FName == "") {
+                $("#errorFName").show();
+                $("#errorFName").text("Please enter First Name");
+                isError = true;
+            }
+            else {
+                $("#errorFName").hide();
+                $("#errorFName").text("");
+                $("#txtFName").removeClass("input-validation-error");
+            }
+
+            if (LName == "") {
+                $("#errorLName").show();
+                $("#errorLName").text("Please enter Last Name");
+                isError = true;
+            }
+            else {
+                $("#errorLName").hide();
+                $("#errorLName").text("");
+            }
+
+            if (Email != "") {
+                $("#errorEmail").hide();
+                $("#errorEmail").text('');
+
+                if (emailTestResult) {
+                    $("#errorEmail").hide();
+                    $("#errorEmail").text('');
+
+                    if (EmailConfirm != "") {
+                        if (Email != EmailConfirm) {
+                            isError = true;
+                            $("#errorEmail").show();
+                            $("#errorEmail").text('Emails do not match.');
+                        }
+                        else {
+                            $("#errorEmail").hide();
+                            $("#errorEmail").text('');
+                        }
+                    }
+                }
+                else {
+                    isError = true;
+                    $("#errorEmail").show();
+                    $("#errorEmail").text('Please enter a valid email');
+                }
+            }
+            else {
+                isError = true;
+                $("#errorEmail").show();
+                $("#errorEmail").text("Please enter Email");
+            }
+
+            if (EmailConfirm != "") {
+                $("#errorConfEmail").hide();
+                $("#errorConfEmail").text('');
+
+                if (confirmEmailTestResult) {
+                    $("#errorConfEmail").hide();
+                    $("#errorConfEmail").text('');
+
+                    if (Email != "") {
+                        if (Email != EmailConfirm) {
+                            isError = true;
+                            $("#errorConfEmail").show();
+                            $("#errorConfEmail").text('Emails do not match.');
+                        }
+                        else {
+                            $("#errorConfEmail").hide();
+                            $("#errorConfEmail").text('');
+                        }
+                    }
+                }
+                else {
+                    isError = true;
+                    $("#errorConfEmail").show();
+                    $("#errorConfEmail").text('Please enter a valid email');
+                }
+            }
+            else {
+                isError = true;
+                $("#errorConfEmail").show();
+                $("#errorConfEmail").text("Please enter Confirm Email");
+            }
+
+            if (Password != "") {
+                $("#errorPassword").hide();
+                $("#errorPassword").text('');
+
+                if (passwordTestResult) {
+                    $("#errorPassword").hide();
+                    $("#errorPassword").text('');
+
+                    if (PasswordConfirm != "") {
+                        if (Password != PasswordConfirm) {
+                            isError = true;
+                            $("#errorPassword").show();
+                            $("#errorPassword").text('Passwords do not match');
+                        }
+                        else {
+                            $("#errorPassword").hide();
+                            $("#errorPassword").text('');
+                        }
+                    }
+                }
+                else {
+                    isError = true;
+                    $("#errorPassword").show();
+                    $("#errorPassword").text('Password must be at least eight characters long. It must contain at least one uppercase letter, one lowercase letter, one number and one symbol.');
+                }
+            }
+            else {
+                isError = true;
+                $("#errorPassword").show();
+                $("#errorPassword").text("Please enter Password");
+            }
+
+        if (PasswordConfirm != "") {
+                $("#errorConPassword").hide();
+                $("#errorConPassword").text('');
+
+                if (confirmPasswordTestResult) {
+                    $("#errorConPassword").hide();
+                    $("#errorConPassword").text('');
+
+                    if (Password != "") {
+                        if (Password != PasswordConfirm) {
+                            isError = true;
+                            $("#errorConPassword").show();
+                            $("#errorConPassword").text('Passwords do not match');
+                        }
+                        else {
+                            $("#errorConPassword").hide();
+                            $("#errorConPassword").text('');
+                        }
+                    }
+                }
+                else {
+                    isError = true;
+                    $("#errorConPassword").show();
+                    $("#errorConPassword").text('Confirm Password must be at least eight characters long. It must contain at least one uppercase letter, one lowercase letter, one number and one symbol.');
+                }
+            }
+            else {
+                isError = true;
+                $("#errorConPassword").show();
+                $("#errorConPassword").text("Please enter Confirm Password");
+            }
+
+            if (Amswer1 == "") {
+                $("#errorAmswer1").show();
+                $("#errorAmswer1").text("Please answer question one");
+                isError = true;
+            }
+            else {
+                $("#errorAmswer1").hide();
+                $("#errorAmswer1").text("");
+            }
+
+            if (Amswer2 == "") {
+                $("#errorAmswer2").show();
+                $("#errorAmswer2").text("Please answer question two");
+                isError = true;
+            }
+            else {
+                $("#errorAmswer2").hide();
+                $("#errorAmswer2").text("");
+            }
+
+            if (Amswer3 == "") {
+                $("#errorAmswer3").show();
+                $("#errorAmswer3").text("Please answer question three");
+                isError = true;
+            }
+            else {
+                $("#errorAmswer3").hide();
+                $("#errorAmswer3").text("");
+            }
+
+            if (Question1 == "") {
+                $("#lblSq1").show();
+                $("#lblSq1").text("Please select a question");
+                isError = true;
+            }
+            else {
+                $("#lblSq1").hide();
+                $("#lblSq1").text("");
+            }
+
+            if (Question2 == "") {
+                $("#lblSq2").show();
+                $("#lblSq2").text("Please select a question");
+                isError = true;
+            }
+            else {
+                $("#lblSq2").hide();
+                $("#lblSq2").text("");
+            }
+
+            if (Question3 == "") {
+                $("#lblSq3").show();
+                $("#lblSq3").text("Please select a question");
+                isError = true;
+            }
+            else {
+                $("#lblSq3").hide();
+                $("#lblSq3").text("");
+            }
+
+            if (!isError) {
+                $("#frmSignUp").submit();
+            }
+        }
+
+
+        function SignUpCancel() {
+
+            //Added by Pedram 6/30/2021
+            window.history.back();
+
+            return false;
+        }
+</script>
+
+<form action="SignupSuccessful.html" id="frmSignUp" method="post">    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="text-center">
+            <h1 class="m-b-20 mt-4">Create a CPMS Account</h1>
+        </div>
+    </div>
+    <div class="offset-lg-3 offset-md-3 offset-sm-2 offset-xs-1 col-lg-6 col-md-6 col-sm-8 col-xs-10 p-lr-5 m-t-5 mobile-signup">
+        <div class="card-s m-b-20 w-auto">
+            <div class="card-body">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-lr-5">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-lr-5">
+                        <p class="control-label">
+                            The following information will be used to create an account in the City Payment Management System (CPMS). Only one user can be created per email address. Once an account is created, you will not be able to change the username.<br />
+                        </p>
+                        <ul class="control-label">
+                            <li>
+                                Username must be at least six characters long and can have up to five letters and one underscore (_) or period (.) in the middle. Do not use spaces. Examples: John.Doe or John_Doe.<br />
+
+                            </li>
+                            <li>
+                                Password must be at least eight characters long. It must contain at least one uppercase letter, one lowercase letter, one number and one symbol.
+
+                            </li>
+                            <li>
+                                Input a phone number using only digits (special characters are not allowed). If you have a US phone number then input your 10-digit phone number, for example: 5690245876. If you have a Non-US phone number then input your country code and phone number, for example: 917648817248.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-lr-5">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-lr-5">
+                        <div class="madate">* Mandatory Fields</div>
+                    </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-lr-5 p-l-20">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-lr-5">
+                            <div class="signup-small-screen">
+                                <div class="m-t-0">
+
+                                    <ol style="display: none;">
+                                        <li>
+                                            <b></b>
+                                            <label for="ValidationMessage" id="lblVarPassword" style="display:none">ValidationMessage</label>
+                                        </li>
+                                        <li>
+                                            <label for="ValidationMessage" id="lblErrorMsg" style="display:none">ValidationMessage</label>
+                                        </li>
+                                    </ol>
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-12 card full-width">
+                                        <div id="divrecaptcha"></div>
+
+                                        <div class="form-group row">
+                                            <div class="col-md-12 col-xs-12 m-t-10">
+                                                <label class="mandatory-star" for="UserName">Username</label>
+                                                <input autocomplete="off" class="form-control p-l-6 required" data-val="true" data-val-regex="Username must be at least six characters long and can have up to five letters and one underscore (_) or period (.) in the middle. Do not use spaces. Examples: John.Doe or John_Doe " data-val-regex-pattern="^[a-zA-Z0-9]&#x2B;([_\.]?[a-zA-Z0-9]&#x2B;){5,18}?$" data-val-required="The User Name field is required." id="txtUserName" maxlength="30" name="UserName" type="text" value="" />
+                                                <label class="normal-font field-validation-error" for="ValidationMessage" id="lblUserName" style="display:none;">ValidationMessage</label>
+                                                <span class="field-validation-valid" data-valmsg-for="UserName" data-valmsg-replace="true"></span>
+                                                <label class="field-validation-error text-danger" for="errorUserName" id="errorUserName" style="display:none;">Label</label>
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-6 col-xs-12">
+                                                <label class="mandatory-star" for="FirstName">First Name</label>
+                                                <input autocomplete="off" class="form-control p-l-6 required" data-val="true" data-val-length="The max length cannot exceed 40 characters. " data-val-length-max="40" data-val-regex="Please use alphabets,Hyphens,Apostrophes only." data-val-regex-pattern="^[a-zA-Z]&#x2B;[a-zA-Z &#x27;-]*$" data-val-required="The First Name field is required." id="txtFName" maxlength="40" name="FirstName" type="text" value="" />
+                                                <label class="normal-font field-validation-error" for="ValidationMessage" id="lblFirstNameMsg" style="display:none;">ValidationMessage</label>
+                                                <span class="field-validation-valid" data-valmsg-for="FirstName" data-valmsg-replace="true"></span>
+                                                <label class="field-validation-error text-danger" for="errorFName" id="errorFName" style="display:none;">Label</label>
+                                            </div>
+
+                                            <div class="col-md-6 col-xs-12">
+                                                <label class="mandatory-star" for="LastName">Last Name</label>
+                                                <input autocomplete="off" class="form-control p-l-6 required" data-val="true" data-val-length="The max length cannot exceed 40 characters. " data-val-length-max="40" data-val-regex="Please use alphabets,Hyphens,Apostrophes only." data-val-regex-pattern="^[a-zA-Z]&#x2B;[a-zA-Z &#x27;-]*$" data-val-required="The Last Name field is required." id="txtLName" maxlength="40" name="LastName" type="text" value="" />
+                                                <label class="normal-font field-validation-error" for="ValidationMessage" id="lblLastNameMsg" style="display:none;">ValidationMessage</label>
+                                                <span class="field-validation-valid" data-valmsg-for="LastName" data-valmsg-replace="true"></span>
+                                                <label class="field-validation-error text-danger" for="errorLName" id="errorLName" style="display:none;">Label</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-6 col-xs-12">
+                                                <label class="mandatory-star" for="EmailId">Email </label>
+                                                <input autocomplete="off" class="form-control p-l-6 required" data-val="true" data-val-regex="Please enter valid Email Address" data-val-regex-pattern="^[a-zA-Z0-9]([_\.\-&#x2B;]*?[a-zA-Z0-9])*@[a-zA-Z0-9.-]&#x2B;\.[a-zA-Z]{2,}$" data-val-required="The Email Address field is required." id="txtEmailInput" maxlength="80" name="EmailId" type="text" value="" />
+                                                <label class="normal-font field-validation-error" for="ValidationMessage" id="lblEmail" style="display:none;">ValidationMessage</label>
+                                                <span class="field-validation-valid" data-valmsg-for="EmailId" data-valmsg-replace="true"></span>
+                                                <label class="field-validation-error text-danger" for="errorEmail" id="errorEmail" style="display:none;">Label</label>
+                                            </div>
+                                            <div class="col-md-6 col-xs-12">
+                                                <label class="mandatory-star" for="ConfirmEmailId">Confirm Email</label>
+                                                <input autocomplete="off" class="form-control p-l-6 required" data-val="true" data-val-equalto="The Email and Confirm Email do not match." data-val-equalto-other="*.EmailId" data-val-regex="Please enter valid Email Address" data-val-regex-pattern="^[a-zA-Z0-9]([_\.\-&#x2B;]*?[a-zA-Z0-9])*@[a-zA-Z0-9.-]&#x2B;\.[a-zA-Z]{2,}$" data-val-required="The Confirm Email field is required." id="txtConfEmail" maxlength="80" name="ConfirmEmailId" type="text" value="" />
+                                                <span class="field-validation-valid" data-valmsg-for="ConfirmEmailId" data-valmsg-replace="true"></span>
+                                                <label class="field-validation-error text-danger" for="errorConfEmail" id="errorConfEmail" style="display:none;">Label</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-md-6 col-xs-12">
+                                                <label for="Phone">Phone Number</label>
+                                                <input class="form-control" data-val="true" data-val-regex="Input a phone number using only digits (special characters are not allowed).&#xA;If you have a US phone number then input your 10 - digit phone number, for example: 5690245876.&#xA;If you have a Non - US phone number then input your country code and phone number, for example: 917648817248." data-val-regex-pattern="\d{10,15}" id="txtPhone" maxlength="15" name="Phone" title="Enter Phone number" type="text" value="" />
+                                                <label class="field-validation-error text-danger" for="errorPhone" id="errorPhone" style="display:none;">Label</label>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group row">
+                                            <div class="col-md-6 col-xs-12">
+                                                <label class="mandatory-star" for="Password">Password</label>
+                                                <div id="dvPassword" class="input-group">
+                                                    <input autocomplete="off" class="form-control p-l-6 required" data-val="true" data-val-regex="Password must be at least eight characters long. It must contain at least one uppercase letter, one lowercase letter, one number and one symbol." data-val-regex-pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*#?&amp;])[A-Za-z\d$@$!%*#?&amp;]{8,50}$" data-val-required="The Password field is required." id="txtPassword" maxlength="50" name="Password" type="password" />
+                                                    <div class="input-group-addon">
+                                                        <a class="ion-ios7-eye inputGroupCustom" id="showPassword"></a>
+                                                    </div>
+                                                </div>
+
+                                                <div id="passwordValdiationMessage">
+                                                    <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+                                                    <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+                                                    <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+                                                    <p id="number" class="invalid">A <b>number</b></p>
+                                                    <p id="symbol" class="invalid">A <b>symbol</b></p>
+                                                    <p id="match" class="invalid">Match <b>confirm password</b></p>
+                                                </div>
+                                                <span class="field-validation-valid" data-valmsg-for="Password" data-valmsg-replace="true"></span>
+                                                <label class="field-validation-error text-danger" for="errorPassword" id="errorPassword" style="display:none;">Label</label>
+                                            </div>
+                                            <div class="col-md-6 col-xs-12">
+                                                <label class="mandatory-star" for="ConfirmPassword">Confirm Password</label>
+                                                <div id="dvConPassword" class="input-group">
+                                                    <input class="form-control p-l-6 required" data-val="true" data-val-equalto="The password and confirmation password do not match." data-val-equalto-other="*.Password" data-val-required="The Confirm Password field is required" id="txtConPassword" maxlength="50" name="ConfirmPassword" type="password" />
+                                                    <div class="input-group-addon">
+                                                        <a class="ion-ios7-eye inputGroupCustom" id="showConfirmPassword"></a>
+                                                    </div>
+                                                </div>
+
+                                                <div id="passwordConfirmValdiationMessage">
+                                                    <p id="lengthConfirm" class="invalid">Minimum <b>8 characters</b></p>
+                                                    <p id="capitalConfirm" class="invalid">A <b>capital (uppercase)</b> letter</p>
+                                                    <p id="letterConfirm" class="invalid">A <b>lowercase</b> letter</p>
+                                                    <p id="numberConfirm" class="invalid">A <b>number</b></p>
+                                                    <p id="symbolConfirm" class="invalid">A <b>symbol</b></p>
+                                                    <p id="matchConfirm" class="invalid">Match <b>password</b></p>
+                                                </div>
+                                                <span class="field-validation-valid" data-valmsg-for="ConfirmPassword" data-valmsg-replace="true"></span>
+                                                <label class="field-validation-error text-danger" for="errorConPassword" id="errorConPassword" style="display:none;">Label</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group m-t-20">
+                                            <div class="col m-b-20">
+                                                <h4 class="page-title mandatory-star">Security Questions</h4>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-md-6 col-xs-12">
+                                                <label for="SecurityQuestion1">Security Question 1</label>
+                                                <select class="form-control required p-l-6" data-val="true" data-val-required="The Security Question field is required" id="ddlSecQuest1" name="SecurityQuestion1"><option value="">-------Select---------</option>
+<option value="1">What was your childhood nickname?</option>
+<option value="2">What is the name of your favorite childhood friend?</option>
+<option value="3">What school did you attend for sixth grade?</option>
+<option value="4">What was the name of your elementary / primary school?</option>
+<option value="5">What was your favorite place to visit as a child?</option>
+<option value="6">What is the name of your favorite childhood teacher?</option>
+<option value="7">Who was your childhood hero?</option>
+<option value="8">What is your grandmother&#x27;s first name?</option>
+<option value="9">What is your mother&#x27;s middle name?</option>
+<option value="10">What is your pet&#x27;s name?</option>
+</select>
+                                                <span class="field-validation-valid" data-valmsg-for="SecurityQuestion1" data-valmsg-replace="true"></span>
+                                                <label class="field-validation-error" for="ValidationMessage" id="lblSq1" style="display:none;">ValidationMessage</label>
+
+
+                                            </div>
+                                            <div class="col-md-6 col-xs-12">
+                                                <label for="SecurityAnswer1">Answer</label>
+                                                <input class="form-control required p-l-6" data-val="true" data-val-required="Answer for the security question is required." id="txtAmswer1" maxlength="50" name="SecurityAnswer1" type="text" value="" />
+                                                <span class="field-validation-valid" data-valmsg-for="SecurityAnswer1" data-valmsg-replace="true"></span>
+                                                <label class="field-validation-error text-danger" for="errorAmswer1" id="errorAmswer1" style="display:none;">Label</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-6 col-xs-12">
+                                                <label for="SecurityQuestion2">Security Question 2</label>
+                                                <select class="form-control required p-l-6" data-val="true" data-val-required="The Security Question field is required" id="ddlSecQuest2" name="SecurityQuestion2"><option value="">-------Select---------</option>
+<option value="1">What was your childhood nickname?</option>
+<option value="2">What is the name of your favorite childhood friend?</option>
+<option value="3">What school did you attend for sixth grade?</option>
+<option value="4">What was the name of your elementary / primary school?</option>
+<option value="5">What was your favorite place to visit as a child?</option>
+<option value="6">What is the name of your favorite childhood teacher?</option>
+<option value="7">Who was your childhood hero?</option>
+<option value="8">What is your grandmother&#x27;s first name?</option>
+<option value="9">What is your mother&#x27;s middle name?</option>
+<option value="10">What is your pet&#x27;s name?</option>
+</select>
+                                                <span class="field-validation-valid" data-valmsg-for="SecurityQuestion2" data-valmsg-replace="true"></span>
+                                                <label class="field-validation-error" for="ValidationMessage" id="lblSq2" style="display:none;">ValidationMessage</label>
+                                            </div>
+                                            <div class="col-md-6 col-xs-12">
+                                                <label for="SecurityAnswer2">Answer</label>
+                                                <input class="form-control required p-l-6" data-val="true" data-val-required="Answer for the security question is required." id="txtAmswer2" maxlength="50" name="SecurityAnswer2" type="text" value="" />
+                                                <span class="field-validation-valid" data-valmsg-for="SecurityAnswer2" data-valmsg-replace="true"></span>
+                                                <label class="field-validation-error text-danger" for="errorAmswer2" id="errorAmswer2" style="display:none;">Label</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-md-6 col-xs-12">
+                                                <label for="SecurityQuestion3">Security Question 3</label>
+                                                <select class="form-control required p-l-6" data-val="true" data-val-required="The Security Question field is required" id="ddlSecQuest3" name="SecurityQuestion3"><option value="">-------Select---------</option>
+<option value="1">What was your childhood nickname?</option>
+<option value="2">What is the name of your favorite childhood friend?</option>
+<option value="3">What school did you attend for sixth grade?</option>
+<option value="4">What was the name of your elementary / primary school?</option>
+<option value="5">What was your favorite place to visit as a child?</option>
+<option value="6">What is the name of your favorite childhood teacher?</option>
+<option value="7">Who was your childhood hero?</option>
+<option value="8">What is your grandmother&#x27;s first name?</option>
+<option value="9">What is your mother&#x27;s middle name?</option>
+<option value="10">What is your pet&#x27;s name?</option>
+</select>
+                                                <span class="field-validation-valid" data-valmsg-for="SecurityQuestion3" data-valmsg-replace="true"></span>
+                                                <label class="field-validation-error" for="ValidationMessage" id="lblSq3" style="display:none;">ValidationMessage</label>
+                                            </div>
+                                            <div class="col-md-6 col-xs-12">
+                                                <label for="SecurityAnswer3">Answer</label>
+                                                <input class="form-control p-l-6 required" data-val="true" data-val-required="Answer for the security question is required." id="txtAmswer3" maxlength="50" name="SecurityAnswer3" type="text" value="" />
+                                                <span class="field-validation-valid" data-valmsg-for="SecurityAnswer3" data-valmsg-replace="true"></span>
+                                                <label class="field-validation-error text-danger" for="errorAmswer3" id="errorAmswer3" style="display:none;">Label</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center m-t-20  p-lr-5 mb-1 mobile-signup-btn" id="noMasterButton">
+                                            <button class="btn secondary-btn m-b-5 xs-pull-center mr-2 mobile-btn" id="btnSignUpCancel" name="btnSignUpCancel" type="button" onclick="SignUpCancel()">
+                                                Cancel
+                                            </button>
+                                            <button class="btn primary-btn m-b-5 xs-pull-center mobile-btn" type="button" id="btnSubmit"
+                                                    onclick="ValidateForm()">
+                                                Submit
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+<input name="__RequestVerificationToken" type="hidden" value="CfDJ8NJnGX81EGNKpLmppARigAlGWU4YJ6mrbPom4Z3IblQUfJN1fwJm7qSOxInm0RJvIGvwnLpl6ERwfQHVcMvgfB6nIQYvkJWw0CP9m0FrQ1e5PM9Y_p_NsqdMVSDAFsUyz-S6t111uYww9K1FY1c8fsQ" /></form>
+
+
+
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-lg-12 border-top footer-section">
+        <footer class="row footer footer-msg p-0 m-0 font-11 text-muted">
+            <div class="col-md-10 border-right">
+                <p class="p-0 m-0">
+                    Copyright &copy; Gov2Biz.
+                </p>
+                <p class="p-0 m-0">
+                    All the information you enter is automatically saved. The back button on the browser is disabled for security reasons.
+                </p>
+            </div>
+            <div class="col-md-2 pull-right text-align-center">
+                <img src="./images/Logo.png" alt="Gov2Biz Logo" height="30" class="clearfix footer-img">
+                <p>
+                <script>document.write(new Date().getFullYear())</script> &copy; CPMS</p>
+            </div>
+        </footer>
+    </div>
+    <script src="/lib/jquery/jquery.js"></script>
+    <script src="/lib/bootstrap/js/bootstrap.js"></script>
+    <script src="/js/jquery.mask.js"></script>
+    
+
+</body>
+</html>

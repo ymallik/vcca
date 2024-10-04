@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Import</title>
+    <style>
+        .import-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .import-container label {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .import-container input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            flex: 1;
+            font-size: 16px;
+        }
+
+        .import-container button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .import-container button:hover {
+            background-color: #0056b3;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="import-container">
+    <label for="fileInput">Select File:</label>
+    <input type="text" id="fileName" placeholder="No file selected" readonly>
+    <button id="importButton">Import</button>
+    <input type="file" id="fileInput" class="hidden" accept=".txt, .csv, .xlsx, .pdf, .docx">
+</div>
+
+<script>
+    document.getElementById('importButton').addEventListener('click', function() {
+        // Trigger the hidden file input when the import button is clicked
+        document.getElementById('fileInput').click();
+    });
+
+    document.getElementById('fileInput').addEventListener('change', function() {
+        // Get the selected file name and display it in the textbox
+        const fileName = this.files[0] ? this.files[0].name : 'No file selected';
+        document.getElementById('fileName').value = fileName;
+    });
+</script>
+
+</body>
+</html>

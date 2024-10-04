@@ -1,0 +1,18 @@
+﻿.content-page {
+    margin-left: 0;
+}
+
+.footer, .footer-msg {
+    left: 0;
+}
+
+/*Added to create the tab validations by vispar*/
+.tabs-error {
+    background-color : rgb(255, 116, 116) !important;
+    border-radius : 4px 4px 4px 4px;
+}
+.tabs-error a {
+    background-color : rgb(255, 116, 116) !important;
+    color : black !important;
+}
+/*End*/

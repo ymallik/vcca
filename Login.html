@@ -1,0 +1,136 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Account</title>
+    
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <!--<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />-->
+    <link rel="shortcut icon" href="./images/favicon.png" />
+    <link rel="stylesheet" href="./css/minton_css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./css/site.css" />
+    <style type="text/css">
+        .navbar-nav {
+            float: right !important;
+        }
+    </style>
+    <link href="./css/minton_css/core.css" rel="stylesheet" type="text/css">
+    <link href="./css/minton_css/icons.css" rel="stylesheet" type="text/css">
+    <link href="./css/minton_css/icons/ionicons/css/ionicons.css" rel="stylesheet" type="text/css">
+    <link href="./css/minton_css/components.css" rel="stylesheet" type="text/css">
+    <link href="./css/minton_css/menu_light.css" rel="stylesheet" type="text/css">
+    <link href="./css/minton_css/responsive.css" rel="stylesheet" type="text/css">
+    <link href="./css/minton_css/pages.css" rel="stylesheet" />
+    <link href="./css/LoginLayoutStyle.css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <form action="Dashboard.html">
+    <div class="body-content">
+        <script src='https://www.google.com/recaptcha/api.js'></script>
+<div class="mt-10 mb-5">
+    <div class="container">
+
+
+        
+        <div class="row justify-content-center">
+
+            <div class="">
+                <div class="card">
+                    <div class="p-4 card-body">
+                        <div class="panel panel-default">
+                            <div class=" col-sm-12 col-lg-12 col-md-12 col-xs-12 col-sm-12 m-b-10 m-t-20 text-center">
+                                <div class="text-center">
+                                    <i class="logo logo-lg login-logo">
+                                            <img src="./images/CCA-brand-mark.jpg"  alt="VCCA" />
+                                    </i>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group btn-wrapper login-msg">
+                                <h4 class="font-bold">Login</h4>
+
+                            </div>
+
+                            <div id="divrecaptcha"></div>
+                            <div class="panel-body login-body">
+
+                                <form action="" method="post">
+                                    <input type="hidden" id="ReturnUrl" name="ReturnUrl" value="/connect/authorize/callback?client_id=AIMSPREUAT&amp;redirect_uri=https%3A%2F%2Fcityconnect-uat.gov2biz.com%2Fsignin-oidc&amp;response_type=code%20id_token&amp;scope=openid%20profile%20offline_access%20roles%20pos_api%20cohosted_api%20IdentityServerApi%20greenpaper_api&amp;state=OpenIdConnect.AuthenticationProperties%3D5_qQ83RtZEZQyfQP3alje9u2JySgNF3q2J21TbEJawIjWr7JLbrjakiyeltgPyzWu0I5sk1oNRa-UgVuAafkQdvkxQJeQPMrolzoIxuq4Gxu8fASSe3O4mYz7G24eM2vhOF3khEXcD5ba4iU-VZODXPm1dInND8xhamkgayCR2bmHXDQ60XpXLKSxsgq4X1ybD0Y49izq_vs9b2f6ccO7XvwYEFYbGytAJQdOlksncDFL0jc7bt8Szq_sOK1FnBWHrEK9wGgDa_3HaA7l3La4Q&amp;response_mode=form_post&amp;nonce=638610489243017629.N2JlZWNhZmUtNTc0Zi00ZjhjLWEyYTAtNTRkMDljYzcyYjdkNmFmOTVjYzQtNWE0Yi00NWE0LTg4ZjUtZjMxZDlkYzQ3Y2Fh&amp;x-client-SKU=ID_NET461&amp;x-client-ver=5.6.0.0" />
+
+
+                                    <div class="form-group mb-3">
+                                        <label class="form-label" for="Username">Username</label>
+                                        <input class="form-control" placeholder="Enter your Username" autofocus type="text" data-val="true" data-val-required="The Username field is required." id="Username" name="Username" size=20 value="Athena.Baldwin@gov2biz.com">
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label class="form-label" for="Password">Password</label>
+                                        <input type="password" class="form-control" placeholder="Enter your password" autocomplete="off" data-val="true" data-val-required="The Password field is required." id="Password" name="Password" size=20 value="Alberto">
+                                    </div>
+                                        <div class="form-group login-remember btn-wrapper">
+                                            <label class="form-label" for="RememberLogin">
+                                                <input type="checkbox" data-val="true" data-val-required="The RememberLogin field is required." id="RememberLogin" name="RememberLogin" value="true">
+                                                Remember My Login
+                                            </label>
+                                        </div>
+                                    <div class="form-group mb-3 btn-wrapper">
+                                        <button class="btn tabc-btn primary-btn w-lg btn-custom waves-effect waves-light xs-pull-center full-width text-center" name="button" value="login">Login</button>
+                                    </div>
+
+
+
+                                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8NJnGX81EGNKpLmppARigAnJzxDqMzKwoe2v2WuJkgtt9trWEptIO3BiFgyIXzbvwGEhemytwvCnO3sEFZMNCZKt8J76aSSaFQmurlv18Bt0ZKDjB__acd9n4iIEaYftnNW-A5-vySf2YDldFyGjFMY" /><input name="RememberLogin" type="hidden" value="false"></form>
+
+                            </div>
+
+                            <!--<div class="m-b-20 btn-wrapper sign-up">
+
+                                <span class="m-t-2">
+                                    <span class="ng-scope font-bold font-16">New to CPMS?</span>
+                                    <a class="createAccount font-bold font-16" href="/PublicUser/SignUp">Sign up</a>
+                                </span>
+                            </div>-->
+                            <div class="m-b-20 btn-wrapper sign-up">
+
+                                <span class="m-t-2">
+                                    <span class="ng-scope font-bold font-16">Forgot password?</span>
+                                    <a class="createAccount font-bold font-16" href="/PublicUser/ForgotPasswordPageOne">Click here</a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+    </div>
+    <div class="clearfix"></div>
+    <footer class="row footer footer-msg m-0 font-11">
+        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 border-right footer-left">
+            <p class="p-0 m-0">
+                Copyright &copy; Gov2Biz.
+            </p>
+            <p class="p-0 m-0">
+                All the information you enter is automatically saved. The back button on the browser is disabled for security reasons.
+            </p>
+        </div>
+        <div class="col-md-2 pull-right text-align-right footer-right">
+            <img src="./images/Logo.png" alt="Gov2Biz Logo" height="30" class="clearfix footer-img">2024 &copy; CPMS.            
+        </div>
+    </footer>
+    <script src="/lib/jquery/jquery.js"></script>
+    <script src="/lib/bootstrap/js/bootstrap.js"></script>
+    
+</form>
+</body>
+</html>

@@ -1,0 +1,134 @@
+:root {
+    --mainColor: #000000;
+    --labelColor: #585858;
+    --mutedBlackColor: #323232;
+    --grayTextColor: #323a46;
+    --backgroundGray: #f5f6f8;
+    --lightBlueHover: #5390f5;
+    --footerGray: #eeeff3;
+    --tabcNavy: #01073C;
+    --tabcYellow: #FFBF3F;
+    --tabcGold: #9a7611;
+}
+
+html {
+    background-color: #edf0f4 !important;
+}
+
+.text-navy {
+    color: var(--tabcNavy) !important;
+}
+
+.text-gold {
+    color: var(--tabcGold) !important;
+}
+
+.headline4 {
+    font-size: 37px;
+    font-weight: 600;
+    letter-spacing: 0.25px;
+}
+
+.body-text {
+    font-size: 16px;
+    font-weight: normal;
+    letter-spacing: 0.25px;
+}
+
+.p-lr-5 {
+    padding: 0 5px !important;
+}
+
+.offset-lg-3 {
+    margin-left: 25%;
+}
+
+.m-t-5 {
+    margin-top: 5px !important;
+}
+
+.mt-5 {
+    margin-top: 5rem;
+}
+
+.card-body {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1rem;
+}
+
+.control-label {
+    font-family: 'Nunito Sans', sans-serif !important;
+    font-size: 16px !important;
+    font-weight: normal !important;
+    color: #01073C;
+    letter-spacing: 0;
+    line-height: 24px;
+    margin-top: 1rem;
+}
+
+.mb-1 {
+    margin-bottom: 1rem;
+}
+
+.mt-4 {
+    margin-top: 4rem;
+}
+
+select.form-control {
+    background: url(images/chevron-down-arrow.png) 99% no-repeat !important;
+    background-size: 16px 13px !important;
+}
+
+.card-box {
+    width: fit-content;
+    height: fit-content;
+}
+
+.w-auto {
+    width: auto !important;
+}
+
+.mr-2 {
+    margin-right: .75rem !important;
+}
+
+.sero-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid #e7eaed;
+    border-radius: .25rem;
+}
+
+@media (min-width: 768px) {
+    .col-md-10 {
+        flex: 0 0 83.33333%;
+        max-width: 83.33333%;
+    }
+
+    .col-md-8 {
+        flex: 0 0 66.66667%;
+        max-width: 66.66667%;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .mobile-signup {
+        margin-left: auto;
+        width: auto;
+    }
+
+    .mobile-signup-btn {
+        display: flex;
+        justify-content: center;
+    }
+
+    .mobile-btn {
+        width: 128px;
+    }
+}
