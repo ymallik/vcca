@@ -1,0 +1,42 @@
+﻿$(document).ready(function () {
+    //validation for alphabetic fields only with no space
+    jQuery.validator.addMethod("lettersonly", function (value, element) {
+        return this.optional(element) || /^[a-zA-Z]+$/i.test(value);
+    }, "Letters with no space only please");
+
+    //validation for email fields
+    $.validator.addMethod("email", function (value, element) {
+        return this.optional(element) || /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value);
+    }, "Email format is incorrect");
+
+    //validation for phone fields
+    $.validator.addMethod("isphone", function (value, element) {
+        return this.optional(element) || /^(\([0-9]{3}\)\s*|[0-9]{3}\-)[0-9]{3}-[0-9]{4}$/.test(value);
+    }, "Phone format is incorrect");
+
+    //validation for letters and basic punc
+    $.validator.addMethod("letterswithbasicpunc", function (value, element) {
+        return this.optional(element) || /^[a-z\-.,()'"\s]+$/i.test(value);
+    }, "Letters or punctuation only please");
+
+    //validation for Aplha Numeric with _
+    jQuery.validator.addMethod("alphanumeric", function (value, element) {
+        return this.optional(element) || /^[a-zA-Z\d\s]+$/i.test(value);
+    }, "Letters and numbers only please");
+
+    //validation for alphabetic fields only with space
+    jQuery.validator.addMethod("letterwithspace", function (value, element) {
+        return this.optional(element) || /^[a-zA-Z\s]+$/i.test(value);
+    }, "Letters only please");
+
+    //validation for Aplha Numeric with out space
+    jQuery.validator.addMethod("alphanumericwithoutspace", function (value, element) {
+        return this.optional(element) || /^[a-zA-Z\d]+$/i.test(value);
+    }, "Letters and numbers only please");
+
+    //validation for alpha numeric and basic punc
+    $.validator.addMethod("alphanumericwithbasicpunc", function (value, element) {
+        return this.optional(element) || /^[a-zA-Z\d\-.,()!?'"\s]+$/i.test(value);
+    }, "Letters or punctuation only please");
+});
+

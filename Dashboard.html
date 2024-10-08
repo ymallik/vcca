@@ -2368,29 +2368,42 @@ function patientRegistrationPrescription()
     newpage += `<br><div id="licenseSearch"><div class="form-row">
                         <div class="form-group col-12">
                             <label class="mandatory-star">Diagnosis</label>
-                            <textarea id="txtEnterNotes" name="txtEnterNotes" class="k-textbox width100perc sero-input:focus" maxlength="300" placeholder="Enter diagnosis here" rows="5" title="Enter diagnosis"></textarea>
+                            <textarea id="txtEnterNotes" name="txtEnterNotes" class="k-textbox width100perc sero-input:focus" maxlength="300" placeholder="Enter diagnosis here" rows="5" title="Enter diagnosis">Pain due to muscle, joint, nerve and spine conditions.</textarea>
                             <div id="UserNotesRemainingCharacters" class="pull-right" title="Maximum of 300 characters">(Maximum of 500 characters)</div>
                         </div>
                     </div>      
                 </div>`;
-    newpage += `<div class="form-row">
+/*     newpage += `<div class="form-row">
                         <div class="form-group col-12">
-                            <label class="mandatory-star">Cannabis Dosage</label>
+                            <label class="mandatory-star">Dosage</label>
                             <input class="form-control" data-val="true" id="txtRegOrLicNum" name="Dosage" title="Dosage" type="text" value="1 mg per day" />
                             
                         </div>
                     </div>      
-                </div>`;
+                </div>`; */
+
+    //newpage = newpage + '<div id="divIsActive"><div class="form-row"><div class="form-group col-12"><label class="mandatory-star" for="importfiletype">Dosage</label><div><select name="importfiletype" id="importfiletype" title="Select Action" class="sero-input" onfocus="showimportfile();" onblur="hideimportfile();"><option value="0">Tablet</option><option value="1">Inhale</option><option value="1">Cream</option></select></div></div></div></div>';
+
+    newpage += `<div class="form-group row">
+                <div class="col-md-6 col-xs-12">
+                    <label class="mandatory-star" for="startDate">Dosage</label>
+                    <div><select name="importfiletype" id="importfiletype" title="Select Action" class="sero-input" onfocus="showimportfile();" onblur="hideimportfile();"><option value="0">Tablet</option><option value="1">Inhale</option><option value="1">Cream</option></select></div>
+                </div>
+                <div class="col-md-6 col-xs-12">
+                    <label for="endDate">&nbsp;</label>
+                    <input class="form-control" data-val="true" id="txtRegOrLicNum" name="Dosage" title="Dosage" type="text" value="5 mg per day" />
+                </div>
+            </div>`;
 
     newpage += `<div class="form-group row">
                 <div class="col-md-6 col-xs-12">
                     <label class="mandatory-star" for="startDate">Start Date</label>
                     <div id="dvPassword" class="input-group">
-                        <input autocomplete="off" class="form-control required" id="startDate" name="startDate" type="text" placeholder="MM-DD-YYYY" value="10-04-2024" />
+                        <input autocomplete="off" class="form-control required" id="startDate" name="startDate" type="text" placeholder="MM-DD-YYYY" value="10-07-2024" />
                     </div>
                 </div>
                 <div class="col-md-6 col-xs-12">
-                    <label for="endDate">End Date</label>
+                    <label for="endDate">Expiration Date</label>
                     <div id="dvConPassword" class="input-group">
                         <input class="form-control required" id="endDate" name="endDate" type="text" placeholder="MM-DD-YYYY" value="12-02-2024" />
                     </div>
@@ -2398,7 +2411,7 @@ function patientRegistrationPrescription()
             </div>`;
 
     newpage = newpage + '<div id="actionbutton" class="form-group text-right mt-1">';
-    newpage = newpage + '<button class="btn btn-outline-secondary btn-lg width-xl waves-effect" type="button" id="resetDocument" onclick="goToDashBoard()">Back</button>';
+    newpage = newpage + '<button class="btn btn-outline-secondary btn-lg width-xl waves-effect" type="button" id="resetDocument" onclick="patientRegistration()">Back</button>';
     newpage = newpage + '<button class="btn btn-primary btn-lg width-lg waves-effect waves-light mr-2" type="button" id="btnUpdateInvestigationNotes" onclick="patientRegistrationSubmit()">Submit</button></div>';
 
     newpage = newpage + '</div></div></div></div>';
@@ -2447,8 +2460,17 @@ function patientRegistration()
     newpage += `<div id="licenseSearch">
         <div class="form-row">
             <div class="form-group col-12">
-                <label class="control-label">Driving Licence Number</label>
+                <label class="control-label">Driving License Number</label>
                 <input class="form-control" data-val="true" id="txtRegOrLicNum" name="Simplesearch.RegOrLicId" title="Driving License" type="text" value="" />
+                <span class="field-validation-valid" data-valmsg-for="Simplesearch.RegOrLicId" data-valmsg-replace="true"></span>
+            </div>
+        </div></div>`;
+
+        newpage += `<div id="licenseSearch">
+        <div class="form-row">
+            <div class="form-group col-12">
+                <label class="control-label">Date of Birth</label>
+                <input class="form-control" data-val="true" id="txtRegOrLicNum" name="Simplesearch.RegOrLicId" title="Date of Birth" type="text" value="02/23/1990" />
                 <span class="field-validation-valid" data-valmsg-for="Simplesearch.RegOrLicId" data-valmsg-replace="true"></span>
             </div>
         </div></div>`;
@@ -2461,6 +2483,12 @@ function patientRegistration()
                 <span class="field-validation-valid" data-valmsg-for="Simplesearch.RegOrLicId" data-valmsg-replace="true"></span>
             </div>
         </div></div>`;
+
+
+    newpage = newpage + '<div id="licenseSearch"><div class="form-row"><div id="attach" class="form-group col-md-12"><label for="AttachDocuments" class="col-sm-12 col-md-12 col-xs-12 readonly-Name">Upload Driving License</label><div class="col-sm-4 col-md-4 col-xs-12 width80perc" aria-required="false" aria-describedby="documentUpload1" title="Document Upload" style="display:flex">';
+    newpage = newpage + '<input type="file" id="documentUpload" name="documentUpload" class="HistoryFileUpload" multiple accept=".pdf, .xls, .xlsx, .doc, .docx, .jpg, .jpeg, .png, .csv, .mov, .m4a, .webm, .mp4, .m4v, .wmv, .flv, .avi, .mts, .mkv" /></div></div></div></div>';
+
+    
 
     newpage = newpage + '<div id="actionbutton" class="form-group text-right mt-1">';
     newpage = newpage + '<button class="btn btn-outline-secondary btn-lg width-xl waves-effect" type="button" id="resetDocument" onclick="goToDashBoard()">Back</button>';

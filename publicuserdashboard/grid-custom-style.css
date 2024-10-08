@@ -1,0 +1,45 @@
+﻿:root {
+    --g2bBlue: #0667d0;
+    --mainColor: #01073C;
+    --labelColor: #6c757d;
+    --mutedBlackColor: #323232;
+    --grayTextColor: #323a46;
+    --backgroundGray: #f5f6f8;
+    --lightBlueHover: #5390f5;
+    --linkColor: #01a9e8;
+    --dangerColor: #ee324d;
+    --footerGray: #eeeff3;
+    --tabcNavy: #01073C;
+    --tabcYellow: #FFBF3F;
+    --tabcGold: #9a7611;
+    --tabcNavyHover: #343963;
+    --tabcMainColor: #00205b;
+}
+
+/*.k-grid a {
+    color: #304FFE;
+    text-decoration: underline;
+    font-weight: 500;
+}*/
+
+th a:link, th span, th span:hover, th a:visited, th a:active, th a:hover {
+    color: #333;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 0;
+}
+
+span.k-link {
+    color: rgba(0,0,0,0.87);
+}
+
+a#btnEdit:hover {
+    color: var(--mainColor);
+    text-decoration: underline;
+}
+
+.k-grid a {
+    text-decoration: none;
+    color: #0667d0;
+}

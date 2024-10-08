@@ -1,0 +1,1829 @@
+﻿
+
+function LoadZipcodeBasedCityAndStatesExist(Zip, City, State) {
+    $.ajax({
+        type: "POST",
+        url: "/Registration/GetCityandStateList_License",
+        data: { "zipCode": Zip },
+        dataType: "json",
+        beforeSend: function () {
+            //alert(id);
+        },
+        success: function (data) {
+
+            var cityitems = "";
+            var Stateitems = "";
+            var countryItems = "";
+            var countyItems = "";
+            $.each(data.zipCodes, function (i, city) {
+                cityitems += "<option value='" + city.City + "'>" + city.City + "</option>";
+                if (city.State.length > 0) {
+                    Stateitems += "<option value='" + city.State + "'>" + city.State + "</option>";
+                    if (city.Country.length > 0) {
+                        countryItems += "<option value='" + city.Country + "'>" + city.Country + "</option>";
+                    }
+                    if (city.County.length > 0) {
+                        countyItems += "<option value='" + city.County + "'>" + city.County + "</option>";
+                    }
+                }
+            });
+
+
+
+            if (cityitems == "" || Stateitems == "" || countryItems == "") {
+                ShowInvalidZipInfo();
+
+                for (var index = 0; index < data.Countries.length; index++) {
+                    countryItems += "<option value='" + data.Countries[index].CountryName + "'>" + data.Countries[index].CountryName + "</option>";
+                }
+
+                $('#ddlCountry').html(countryItems);
+
+                //clearOtherValues();
+                showInvalidZipContainer(true);
+                ShowCounty(false);
+                $("#ZipCodeInfo_IsValidZip").val(false);
+                $("#ZipCodeInfo_OtherCity").val(City);
+                $("#ZipCodeInfo_OtherState").val(State);
+
+            }
+            else {
+                $("#ZipCodeInfo_IsValidZip").val(true);
+
+                $('#ddlCity').html(cityitems);
+                $('#ddlState').html(Stateitems);
+                $('#ddlCounty').html(countyItems);
+                $('#ddlCountry').html(countryItems);
+
+                if (validCity != null && validCity.length > 4) {
+                    $('#ddlCity').find('option').each(function () {
+                        var $this = $(this);
+                        if ($this.text() == validCity) {
+                            $this.attr('selected', 'selected');
+                            return false;
+                        }
+                    });
+                }
+
+                if (validState != null && validState.length > 1) {
+                    $('#ddlState').find('option').each(function () {
+                        var $this = $(this);
+                        if ($this.text() == validState) {
+                            $this.attr('selected', 'selected');
+                            return false;
+                        }
+                    });
+                }
+                if (validCountry != null && validCountry.length > 4) {
+                    $('#ddlCountry').find('option').each(function () {
+                        var $this = $(this);
+                        if ($this.text() == validCountry) {
+                            $this.attr('selected', 'selected');
+                            return false;
+                        }
+                    });
+                }
+
+                if (validCounty != null && validCounty.length > 4) {
+                    $('#ddlCounty').find('option').each(function () {
+                        var $this = $(this);
+                        if ($this.text() == validCounty) {
+                            $this.attr('selected', 'selected');
+                            return false;
+                        }
+                    });
+                }
+                showInvalidZipContainer(false);
+                ShowCounty(true);
+                // clearOtherValues();
+            }
+        },
+        error: function (result) {
+            // alert('Service call failed: ' + result.status + ' Type :' + result.statusText);
+        }
+    });
+}
+
+function LoadZipcodeBasedCityAndStates(iscontact) {
+    var adddefault = false;
+    if (iscontact != undefined) {
+        adddefault = true;
+    }
+
+    var id = $("#txtZip").val();
+
+    if (validCity == null || validCity == '' || validCity == 'Other') {
+        validCity = otherCity;
+    }
+
+    if (validState == null || validState == '' || validState == 'Other') {
+        validState = otherState;
+    }
+
+    if (validCounty == null || validCounty == '' || validCounty == 'Other') {
+        validCounty = otherCounty;
+    }
+
+    var isCityItem = false;
+    var isStateitem = false;
+    var isCountryItem = false;
+    var isCountyItem = false;
+
+    $("span", "#cityErrMsg").removeClass("field-validation-error").removeClass("field-validation-error").addClass("field-validation-valid");
+    $("span", "#stateErrMsg").removeClass("field-validation-error").removeClass("field-validation-error").addClass("field-validation-valid");
+    $("span", "#countyErrMsg").removeClass("field-validation-error").removeClass("field-validation-error").addClass("field-validation-valid");
+
+    if (zip != "") {
+        $.ajax({
+            type: "POST",
+            url: "/Registration/GetCityandStateList_License",
+            data: { "zipCode": zip },
+            dataType: "json",
+            beforeSend: function () {
+                //alert(id);
+            },
+            success: function (data) {
+
+                $.each(data.zipCodes, function (i, city) {
+                    if (city.City == validCity) {
+                        isCityItem = true;
+                    }
+
+                    if (city.State == validState) {
+                        isStateitem = true;
+                    }
+
+                    if (city.County == validCounty) {
+                        isCountyItem = true;
+                    }
+
+                    if (city.Country == validCountry) {
+                        isCountryItem = true;
+                    }
+                });
+            },
+            error: function (result) {
+                //alert('Service call failed: ' + result.status + ' Type :' + result.statusText);
+            }
+        });
+    }
+
+
+    if (id != "") { //&& !isNaN(id) && id.length >= 5) {
+        $.ajax({
+            type: "POST",
+            url: "/Registration/GetCityandStateList_License",
+            data: { "zipCode": id },
+            dataType: "json",
+            beforeSend: function () {
+                //alert(id);
+            },
+            success: function (data) {
+                var cityitems = "";
+                var Stateitems = "";
+                var countryItems = "";
+                var countyItems = "";
+                var countryname = "";
+                $.each(data.zipCodes, function (i, city) {
+                    cityitems += "<option value='" + city.City + "'>" + city.City + "</option>";
+                    if (city.State.length > 0) {
+                        Stateitems += "<option value='" + city.State + "'>" + city.State + "</option>";
+                        if (city.Country.length > 0) {
+                            countryItems += "<option value='" + city.Country + "'>" + city.Country + "</option>";
+                        }
+                        if (city.County.length > 0) {
+                            countyItems += "<option value='" + city.County + "'>" + city.County + "</option>";
+                        }
+
+                        countryname = city.Country;
+
+                    }
+                });
+                if (cityitems == "" || Stateitems == "" || countryItems == "") {
+
+                    ShowInvalidZipInfo();
+
+                    if (adddefault == true) {
+                        countryItems += "<option value=''>Select Country</option>";
+                        $("#txtOtherCountry").val('');
+                    }
+
+                    for (var index = 0; index < data.Countries.length; index++) {
+                        countryItems += "<option value='" + data.Countries[index].CountryName + "'>" + data.Countries[index].CountryName + "</option>";
+                    }
+
+                    $('#ddlCountry').html(countryItems);
+
+                    //clearOtherValues();
+                    //showInvalidZipContainer(true);
+
+                    ValidateCountry(true);
+
+                    CountryChangeEvent();
+
+                    if (zip != "") {
+                        //Edit Mode
+                        BindCityValue(validCity, !isCityItem);
+                        BindStateValue(validState, !isStateitem);
+                        //if (id == zip) {
+                        //    BindCountyValue(validCounty, isCountyItem);
+                        //} else {
+                        //    BindCountyValue(validCounty, !isCountyItem);
+                        //}
+                        BindCountyValue(validCounty, !isCountyItem);
+                        BindCountryValue(validCountry, countryname, !isCountryItem);
+                    } else {
+                        //First Time
+                        BindCityValue(validCity, isCityItem);
+                        BindStateValue(validState, isStateitem);
+                        BindCountyValue(validCounty, isCountyItem);
+                        BindCountryValue(validCountry, countryname, isCountryItem);
+                    }
+
+                    ShowCounty(false);
+
+                    $("#ZipCodeInfo_IsValidZip").val(false);
+                }
+                else {
+                    $("#ZipCodeInfo_IsValidZip").val(true);
+
+                    cityitems += "<option value='" + "Other" + "'>" + "Other" + "</option>";
+                    Stateitems += "<option value='" + "Other" + "'>" + "Other" + "</option>";
+                    countyItems += "<option value='" + "Other" + "'>" + "Other" + "</option>";
+
+                    $('#ddlCity').html(cityitems);
+                    $('#ddlState').html(Stateitems);
+                    $('#ddlCounty').html(countyItems);
+                    $('#ddlCountry').html(countryItems);
+
+                    if (id == zip) {
+                        BindCityValue(validCity, true);
+                        BindStateValue(validState, true);
+                        BindCountyValue(validCounty, true);
+                        BindCountryValue(validCountry, countryname, true);
+
+                    } else {
+
+                        ShowOtherCity(false);
+                        ShowOtherState(false);
+                        ShowOtherCounty(false);
+
+                    }
+
+                    ShowCounty(true);
+
+                    CityChangeEvent();
+                    StateChangeEvent();
+                    CountyChangeEvent();
+                    CountryChangeEvent();
+
+                    ValidateCountry(false);
+                }
+            },
+            error: function (result) {
+                alert('Service call failed: ' + result.status + ' Type :' + result.statusText);
+            }
+        });
+    }
+    else {
+        var cityitems = '<option value=""></option>';
+        $('#ddlCity').html(cityitems);
+        var Stateitems = '<option value=""></option>';
+        $('#ddlState').html(Stateitems);
+        var countyitems = '<option value=""></option>';
+        $('#ddlCounty').html(countyitems);
+
+    }
+}
+
+//DelinquencyLicenseRecords for Grid
+function LoadDelinquencyLicenseRecordsList() {
+
+    $.ajax({
+        type: "POST",
+        url: DelinquencyLicenseRecords,
+        data: {},
+        dataType: "json",
+        cache: false,
+        success: function (data) {
+            
+            //var grid = $("#GridDelinquencyLicenseRecords").data("tGrid");
+            //grid.dataBind(data);
+
+
+            var grid = $("#GridDelinquencyLicenseRecords").data("kendoGrid");
+            var dataSource = new kendo.data.DataSource({ data: data });
+            grid.setDataSource(dataSource);
+            grid.pageSize = 5;
+            grid.dataSource.read();
+
+        },
+        error: function (result) {
+
+        }
+    });
+
+}
+
+function LoadBusZipcodeBasedCityAndStates() {
+    var id = $("#txtZip").val();
+
+    if (validCity == null || validCity == '') {
+        validCity = otherCity;
+    }
+
+    if (validState == null || validState == '') {
+        validState = otherState;
+    }
+
+    var isCityItem = false;
+    var isStateitem = false;
+    var isCountryItem = false;
+    var isCountyItem = false;
+
+    if (zip != "") {
+        $.ajax({
+            type: "POST",
+            url: "/Registration/GetCityandStateList_License",
+            data: { "zipCode": zip },
+            dataType: "json",
+            beforeSend: function () {
+                //alert(id);
+            },
+            success: function (data) {
+
+                $.each(data.zipCodes, function (i, city) {
+                    if (city.City == validCity) {
+                        isCityItem = true;
+                    }
+
+                    if (city.State == validState) {
+                        isStateitem = true;
+                    }
+
+                    if (city.County == validCounty) {
+                        isCountyItem = true;
+                    }
+
+                    if (city.Country == validCountry) {
+                        isCountryItem = true;
+                    }
+                });
+            },
+            error: function (result) {
+                //alert('Service call failed: ' + result.status + ' Type :' + result.statusText);
+            }
+        });
+    }
+
+
+    if (id != "") { //&& !isNaN(id) && id.length >= 5) {
+        $.ajax({
+            type: "POST",
+            url: "/Registration/GetCityandStateList_License",
+            data: { "zipCode": id },
+            dataType: "json",
+            beforeSend: function () {
+                //alert(id);
+            },
+            success: function (data) {
+                var cityitems = "";
+                var Stateitems = "";
+                var countryItems = "";
+                var countyItems = "";
+                var countryname = "";
+                $.each(data.zipCodes, function (i, city) {
+                    cityitems += "<option value='" + city.City + "'>" + city.City + "</option>";
+                    if (city.State.length > 0) {
+                        Stateitems += "<option value='" + city.State + "'>" + city.State + "</option>";
+                        if (city.Country.length > 0) {
+                            countryItems += "<option value='" + city.Country + "'>" + city.Country + "</option>";
+                        }
+                        if (city.County.length > 0) {
+                            countyItems += "<option value='" + city.County + "'>" + city.County + "</option>";
+                        }
+
+                        countryname = city.Country;
+
+                    }
+                });
+                if (cityitems == "" || Stateitems == "" || countryItems == "") {
+
+                    ShowInvalidZipInfo();
+
+                    if (adddefault == true) {
+                        countryItems += "<option value>Select Country</option>";
+                        $("#txtOtherCountry").val('');
+                    }
+
+                    for (var index = 0; index < data.Countries.length; index++) {
+                        countryItems += "<option value='" + data.Countries[index].CountryName + "'>" + data.Countries[index].CountryName + "</option>";
+                    }
+
+                    $('#ddlCountry').html(countryItems);
+
+                    //clearOtherValues();
+                    //showInvalidZipContainer(true);
+
+                    if (zip != "") {
+                        //Edit Mode
+                        BindCityValue(validCity, !isCityItem);
+                        BindStateValue(validState, !isStateitem);
+                        BindCountyValue(validCounty, !isCountyItem);
+                        //if (id == zip) {
+                        //    BindCountyValue(validCounty, isCountyItem);
+                        //} else {
+                        //    BindCountyValue(validCounty, !isCountyItem);
+                        //}
+                        BindCountryValue(validCountry, countryname, !isCountryItem);
+                    } else {
+                        //First Time
+                        BindCityValue(validCity, isCityItem);
+                        BindStateValue(validState, isStateitem);
+                        //BindCountyValue(validCounty, isCountyItem);
+                        BindCountryValue(validCountry, countryname, isCountryItem);
+                    }
+
+                    ShowCounty(false);
+
+                    $("#ZipCodeInfo_IsValidZip").val(false);
+                }
+                else {
+                    $("#ZipCodeInfo_IsValidZip").val(true);
+
+                    cityitems += "<option value='" + "Other" + "'>" + "Other" + "</option>";
+                    Stateitems += "<option value='" + "Other" + "'>" + "Other" + "</option>";
+                    countyItems += "<option value='" + "Other" + "'>" + "Other" + "</option>";
+
+                    $('#ddlCity').html(cityitems);
+                    $('#ddlState').html(Stateitems);
+                    $('#ddlCounty').html(countyItems);
+                    $('#ddlCountry').html(countryItems);
+
+                    if (id == zip) {
+
+                        BindCityValue(validCity, true);
+                        BindStateValue(validState, true);
+                        BindCountyValue(validCounty, true);
+                        BindCountryValue(validCountry, countryname, true);
+
+                    } else {
+
+                        ShowOtherCity(false);
+                        ShowOtherState(false);
+                        ShowOtherCounty(false);
+
+                    }
+
+                    ShowCounty(true);
+
+                    CityChangeEvent();
+                    StateChangeEvent();
+                    CountyChangeEvent();
+                }
+            },
+            error: function (result) {
+                alert('Service call failed: ' + result.status + ' Type :' + result.statusText);
+            }
+        });
+    }
+    else {
+        var cityitems = '<option value=""></option>';
+        $('#ddlCity').html(cityitems);
+        var Stateitems = '<option value=""></option>';
+        $('#ddlState').html(Stateitems);
+        var countyitems = '<option value=""></option>';
+        $('#ddlCounty').html(countyitems);
+
+    }
+}
+
+function ShowOtherCity(show) {
+    if (show) {
+        $('#cityContainer').show();
+
+        $("#ZipCodeInfo_OtherCity").rules("add", {
+            required: true,
+            messages: {
+                required: "Please Enter Other City",
+            }
+        });
+        $("#cityErrMsg").show();
+    } else {
+        $('#cityContainer').hide();
+
+        $("#ZipCodeInfo_OtherCity").rules("remove", "required");
+        $("#cityErrMsg").hide();
+    }
+}
+
+function ShowOtherState(show) {
+    if (show) {
+        $('#stateContainer').show();
+
+        $("#ZipCodeInfo_OtherState").rules("add", {
+            required: true,
+            messages: {
+                required: "Please Enter Other State",
+            }
+        });
+        $("#stateErrMsg").show();
+    } else {
+        $('#stateContainer').hide();
+
+        $("#ZipCodeInfo_OtherState").rules("remove", "required");
+        $("#stateErrMsg").hide();
+    }
+}
+
+function ShowOtherCounty(show) {
+    if (show) {
+        $('#countyContainer').show();
+
+        $("#ZipCodeInfo_OtherCounty").rules("add", {
+            required: true,
+            messages: {
+                required: "Please Enter Other County",
+            }
+        });
+        $("#countyErrMsg").show();
+    } else {
+        $('#countyContainer').hide();
+
+        $("#ZipCodeInfo_OtherCounty").rules("remove", "required");
+        $("#countyErrMsg").hide();
+    }
+}
+
+function BindCityValue(validCity, isValidZip) {
+    var isValidCity = false;
+    if (validCity != null) { // && validCity.length > 4) {
+        $('#ddlCity').find('option').each(function () {
+            var $this = $(this);
+            if ($this.text() == validCity) {
+                $this.attr('selected', 'selected');
+                isValidCity = true;
+                return false;
+            }
+        });
+    }
+
+    if (isValidZip) {
+
+        if (!isValidCity) {
+            ShowOtherCity(true);
+            $('#ddlCity').val('Other');
+            $('#ZipCodeInfo_OtherCity').val(validCity);
+        } else {
+            $('#ZipCodeInfo_OtherCity').val('');
+            ShowOtherCity(false);
+        }
+    } else {
+        $('#ZipCodeInfo_OtherCity').val('');
+        ShowOtherCity(true);
+    }
+
+    if (validCity == 'Other') {
+        $('#ZipCodeInfo_OtherCity').val('');
+        ShowOtherCity(true);
+    }
+}
+
+function BindStateValue(validState, isValidZip) {
+    var isValidState = false;
+    if (validState != null) { // && validState.length > 1) {
+        $('#ddlState').find('option').each(function () {
+            var $this = $(this);
+            if ($this.text() == validState) {
+                $this.attr('selected', 'selected');
+                isValidState = true;
+                return false;
+            }
+        });
+    }
+
+    if (isValidZip) {
+        if (!isValidState) {
+            ShowOtherState(true);
+            $('#ddlState').val('Other');
+            $('#ZipCodeInfo_OtherState').val(validState);
+        } else {
+            $('#ZipCodeInfo_OtherState').val('');
+            ShowOtherState(false);
+        }
+    } else {
+        $('#ZipCodeInfo_OtherState').val('');
+        ShowOtherState(true);
+    }
+
+    if (validState == 'Other') {
+        $('#ZipCodeInfo_OtherState').val('');
+        ShowOtherState(true);
+    }
+}
+
+function BindCountyValue(validCounty, isValidZip) {
+    var isValidCounty = false;
+
+    if (validCounty != null) { // && validCounty.length > 4) {
+        $('#ddlCounty').find('option').each(function () {
+            var $this = $(this);
+            if ($this.text() == validCounty) {
+                $this.attr('selected', 'selected');
+                isValidCounty = true;
+                return false;
+            }
+        });
+    }
+
+    if (isValidZip) {
+        if (!isValidCounty) {
+            ShowOtherCounty(true);
+            $('#ddlCounty').val('Other');
+            $('#ZipCodeInfo_OtherCounty').val(validCounty);
+        } else {
+            $('#ZipCodeInfo_OtherCounty').val('');
+            ShowOtherCounty(false);
+        }
+    } else {
+        $('#ZipCodeInfo_OtherCounty').val('');
+        ShowOtherCounty(true);
+    }
+    if (validCounty == 'Other') {
+        $('#ZipCodeInfo_OtherCounty').val('');
+        ShowOtherCounty(true);
+    }
+}
+
+function BindCountryValue(validCounty, countryname, isValidZip) {
+    if (validCountry != null) { // && validCountry.length > 4) {
+        $('#ddlCountry').find('option').each(function () {
+            var $this = $(this);
+            if ($this.text() == validCountry) {
+                $this.attr('selected', 'selected');
+                $("#txtOtherCountry").val(validCountry);
+                return false;
+            }
+        });
+    }
+    else {
+        if (countryname != null) {
+            $("#txtOtherCountry").val(countryname);
+        }
+    }
+}
+
+function CityChangeEvent() {
+    $('#ddlCity').change(function () {
+        if ($(this).val() == "Other") {
+            $("#ZipCodeInfo_OtherCity").val('');
+            ShowOtherCity(true);
+        }
+        else {
+            ShowOtherCity(false);
+        }
+    });
+}
+
+function StateChangeEvent() {
+    $('#ddlState').change(function () {
+        if ($(this).val() == "Other") {
+            $("#ZipCodeInfo_OtherState").val('');
+            ShowOtherState(true);
+            ShowCounty(false);
+        }
+        else {
+            ShowOtherState(false);
+            ShowCounty(true);
+        }
+    });
+}
+
+function CountyChangeEvent() {
+    $('#ddlCounty').change(function () {
+        if ($(this).val() == "Other") {
+            $("#ZipCodeInfo_OtherCounty").val('');
+            ShowOtherCounty(true);
+        }
+        else {
+            ShowOtherCounty(false);
+        }
+    });
+}
+
+function CountryChangeEvent() {
+    $("#ddlCountry").change(function () {
+        $("#txtOtherCountry").val($("#ddlCountry").val());
+    });
+}
+
+function GetMessage() {
+    if ($("#txtOtherCountry").val() == "Select Country") {
+        return 'Please Select Country';
+    }
+}
+
+function ValidateCountry(show) {
+    if (show) {
+        //$("#txtOtherCountry").rules("add", {
+        //    required: true,
+        //    messages: {
+        //        required: "Please Select Country",
+        //    }
+        //});
+        $("#ddlCountry").rules("add", {
+            required: true,
+            messages: {
+                required: "Please Select Country",
+            }
+        });
+        $("#countryErrMsg").show();
+    } else {
+
+        $("#txtOtherCountry").rules("remove", "required");
+        $("#countryErrMsg").hide();
+    }
+}
+
+function cityStateRules() {
+    $("#ZipCodeInfo_OtherCity").rules("add", {
+        required: true,
+        messages: {
+            required: "Please Enter Other City",
+        }
+    });
+    $("#cityErrMsg").show();
+
+
+    $("#ZipCodeInfo_OtherState").rules("add", {
+        required: true,
+        messages: {
+            required: "Please Enter Other State",
+        }
+    });
+    $("#stateErrMsg").show();
+
+    $("#ddlCountry").rules("add", {
+        required: true,
+        messages: {
+            required: "Please Select Country",
+        }
+    });
+
+    $("#txtOtherCountry").rules("add", {
+        required: true,
+        messages: {
+            required: "Please Select Country",
+        }
+    });
+    $("#countryErrMsg").show();
+}
+
+function cityStateRemoveRules() {
+    $("#ZipCodeInfo_OtherCity").rules("remove", "required");
+    $("#cityErrMsg").hide();
+
+    $("#ZipCodeInfo_OtherState").rules("remove", "required");
+    $("#stateErrMsg").hide();
+
+}
+
+function countyRule() {
+    $("#ZipCodeInfo_OtherCounty").rules("add", {
+        required: true,
+        messages: {
+            required: "Please Enter Other County",
+        }
+    });
+    $("#countyErrMsg").show();
+}
+
+function countyRemoveRule() {
+    $("#ZipCodeInfo_OtherCounty").rules("remove", "required");
+    $("#countyErrMsg").hide();
+}
+
+function clearOtherValues() {
+    $('#ZipCodeInfo_OtherCity').val('');
+    $('#ZipCodeInfo_OtherState').val('');
+    $('#ZipCodeInfo_OtherCounty').val('');
+}
+
+function showInvalidZipContainer(show) {
+    var divContainers = ["#cityContainer", "#stateContainer"];
+    for (var index = 0; index < divContainers.length; index++) {
+        if (show) {
+            cityStateRules();
+            $(divContainers[index]).show();
+        }
+        else {
+            cityStateRemoveRules();
+            $(divContainers[index]).hide();
+        }
+    }
+}
+
+function ShowCounty(onLoad) {
+    var state = $("#ddlState").find('option:selected').text().toUpperCase();
+    var country = $("#ddlCountry").find('option:selected').text();
+
+    var otherState = $("#ZipCodeInfo_OtherState").val().toUpperCase();
+    var county = $("#ddlCounty").find('option:selected').text();
+
+    if (onLoad) {
+        if (county != "Other") {
+            if ((state == "TX" || otherState == "TX") && (country == "US" || country == "USA")) {
+                $("#validCountyContainer").show();
+                $("#hidebr").show();
+                $("#countyContainer").hide();
+                countyRemoveRule();
+            }
+            else {
+                $("#validCountyContainer, #countyContainer").hide();
+                $("#hidebr").hide();
+                countyRemoveRule();
+            }
+        }
+        else if ((state == "TX" || otherState == "TX") && (country == "US" || country == "USA")) {
+            $("#validCountyContainer, #countyContainer").show();
+            $("#hidebr").show();
+            countyRule();
+        }
+        else {
+            $("#validCountyContainer, #countyContainer").hide();
+            $("#hidebr").hide();
+            countyRemoveRule();
+        }
+
+        return;
+    }
+
+    if ((state == "TX" || otherState == "TX") && (country == "US" || country == "USA")) {
+        $("#validCountyContainer, #countyContainer").show();
+        $("#hidebr").show();
+        countyRule();
+    }
+    else {
+        $("#validCountyContainer, #countyContainer").show();//TFS#3072
+        $("#hidebr").hide();
+        countyRemoveRule();
+    }
+}
+
+function ShowInvalidZipInfo() {
+    var otherCity = "<option value='" + "Other" + "'>" + "Other" + "</option>";
+    var otherState = "<option value='" + "Other" + "'>" + "Other" + "</option>";
+    var otherCounty = "<option value='" + "Other" + "'>" + "Other" + "</option>";
+    var country = "<option value='" + validCountry + "'>" + validCountry + "</option>";
+
+    $('#ddlCity').html(otherCity);
+    $('#ddlState').html(otherState);
+    $('#ddlCounty').html(otherCounty);
+    $('#ddlCountry').html(country);
+
+}
+
+function ShowBusCountry() {
+
+    var country = "<option value='US'>US</option>";
+    $('#ddlCountry').html(country);
+
+}
+
+function DateMask(controlName) {
+    $(controlName).keypress(function () {
+
+        var number = $(controlName).val();
+        switch (number.length) {
+            case 2:
+                var newnumber1 = $(controlName).val();
+                $(controlName).val(newnumber1.substring(0, 2) + "/");
+                break;
+            case 5:
+                var newnumber1 = $(controlName).val();
+                $(controlName).val(newnumber1 + "/" + newnumber1.substring(4, 4));
+                break;
+        }
+    });
+}
+
+function CheckFileLength(filename) {
+    if (filename.length > 80) {
+        // alert("FileName should be less than 80 characters!");
+        return false;
+    }
+    else
+        return true;
+}
+
+function OnlyNumbers(controlName) {
+    $(controlName).on('keypress', function (ev) {
+        var keyCode = window.event ? ev.keyCode : ev.which;
+        //codes for 0-9
+        if (keyCode <= 47 || keyCode > 57) {
+            //codes for backspace, delete, enter
+            if (keyCode != 0 && keyCode != 8 && keyCode != 13 && !ev.ctrlKey) {
+                ev.preventDefault();
+            }
+        }
+    });
+}
+
+//function ContCharacters(control, limit, labelId) {
+//    console.log(control);
+//    console.log(limit);
+//    var currentDesc = control;
+//    if (currentDesc != null && currentDesc.value != null) {
+//        var currentLength = currentDesc.value.length;
+//        var remainingChars = limit - currentLength;
+//        if (remainingChars <= 0) {
+//            currentDesc.value = currentDesc.value.substr(0, limit);
+//            alert("You cannot add Description more than " + limit + " characters");
+//        }
+//        currentLength = currentDesc.value.length;
+//        remainingChars = limit - currentLength;
+//        document.getElementById(labelId).innerHTML = "Remaining Characters " + remainingChars;
+
+//    }
+//}
+
+//Replaced from Milestone1 to fix the Bug Id : 1497 of ORR
+function ContCharacters(what, limit, labelId) {
+    currentLength = what.value.length;
+    var currentDesc = what;
+
+    var x = what.value;
+
+    var newLines = x.match(/(\r\n|\n|\r)/g);
+    var addition = 0;
+    if (newLines != null) {
+        addition = newLines.length;
+    }
+
+    //currentLength = currentLength + addition;
+
+    if (currentDesc != null && currentDesc.value != null) {
+        var remainingChars = limit - currentLength;
+
+        if (currentLength > limit) {
+            alert("You cannot add Description more than " + limit + " characters");
+        }
+        else {
+            document.getElementById(labelId).innerHTML = "Remaining Characters " + remainingChars;
+        }
+    }
+}
+
+
+function CountUserNotesCharacters(what, limit, labelId) {
+    var currentString = $(what).val();
+    currentString = currentString.replace(/\n|\n\n/gi, "");
+    currentLength = currentString.length;
+    var currentDesc = what;
+    var x = what.value;
+    // var newLines = x.match(/(\r\n|\n|\r)/g);
+    //var newLines = x.replace(/\r(?!\n)|\n(?!\r)/g, "\r\n");
+    var addition = 0;
+
+    //Browser Detection and adding additional char count.
+    //if (navigator.userAgent.search("MSIE") >= 0) {
+    //    addition = 1 * (newLines.length);
+    //}
+    //    //Check if browser is Chrome or not
+    //else if (navigator.userAgent.search("Chrome") >= 0) {
+    //    if (newLines !== null && newLines.length !== 0) {
+    //        addition = 2 * (newLines.length);
+    //    }
+    //}
+    //    //Check if browser is Firefox or not
+    //else if (navigator.userAgent.search("Firefox") >= 0) {
+    //    addition = 2 * (newLines.length);
+    //}
+    //    //Check if browser is Safari or not
+    //else if (navigator.userAgent.search("Safari") >= 0 && navigator.userAgent.search("Chrome") < 0) {
+    //    addition = 2 * (newLines.length);
+    //}
+    //    //Check if browser is Opera or not
+    //else if (navigator.userAgent.search("Opera") >= 0) {
+    //    addition = 2 * (newLines.length);
+    //}
+
+    //addition = 1 * (newLines.length);
+
+    currentLength = currentLength + addition;
+
+    if (currentDesc != null && currentDesc.value != null) {
+        var remainingChars = limit - currentLength;
+
+        if (currentLength > limit) {
+            //alert("You cannot add Description more than " + limit + " characters");
+            //TFS 1675
+            $("#UserNotesDialog").html("You cannot add Description more than " + limit + " characters");
+            $("#UserNotesDialog").dialog({
+                modal: true,
+                title: 'Alert',
+                buttons: {
+                    Ok: function () {
+                        $(this).dialog("close"); //closing on Ok click
+                    }
+                },
+
+            });
+        }
+        else {
+            document.getElementById(labelId).innerHTML = "Remaining Characters " + remainingChars;
+        }
+    }
+}
+
+function CallMethodWithHeader(type, url, parameters, headers, successCallback) {
+
+    $.ajax({
+        type: type,
+        url: url,
+        data: parameters,// { "DocumentFeesNotesId": documentFeesNotesId, "WorkItemId": WorkItemId, "NotesId": NoteTypeId, "Description": description, "Status": Status, 'ApplicationId': ApplicationId },
+        cache: false,
+        headers: {
+            'RequestVerificationToken': headers
+        },
+        success: successCallback,
+        error: function (xhr, textStatus, errorThrown) {
+            console.log('error');
+        }
+    });
+}
+
+function CallMethodWithoutHeader(type, url, parameters, headers, successCallback) {
+
+    $.ajax({
+        type: type,
+        url: url,
+        data: parameters,// { "DocumentFeesNotesId": documentFeesNotesId, "WorkItemId": WorkItemId, "NotesId": NoteTypeId, "Description": description, "Status": Status, 'ApplicationId': ApplicationId },
+        cache: false,
+        //headers: {
+        //    'RequestVerificationToken': headers
+        //},
+        success: successCallback,
+        error: function (xhr, textStatus, errorThrown) {
+            console.log('error');
+        }
+    });
+}
+
+function OnUploadFileExtensions(extension) {
+
+    if (extension == ".pdf" || extension == ".doc" || extension == ".docx" || extension == ".xls" || extension == ".xlsx"
+        || extension == ".PDF" || extension == ".DOC" || extension == ".DOCX" || extension == ".XLS" || extension == ".XLSX") {
+        return true;
+    }
+    else {
+        return false;
+    }
+
+}
+
+function OnUploadMaxFileExtensions(extension) {
+
+    if (extension == ".zip" ||extension == ".mov" || extension == ".mp4" || extension == ".m4v" || extension == ".wmv" || extension == ".flv" || extension == ".avi" || extension == ".mov" || extension == ".mts" || extension == ".mkv" || extension == ".webm" || extension == "mpeg" || extension == ".pdf" || extension == ".doc" || extension == ".docx" || extension == ".xls" || extension == ".xlsx"
+        || extension == ".MOV" || extension == ".MP4" || extension == ".M4V" || extension == ".WMV" || extension == ".FLV" || extension == ".AVI" || extension == ".MOV" || extension == ".MTS" || extension == ".MKV" || extension == ".WEBM" || extension == "MPEG" || extension == ".PDF" || extension == ".DOC" || extension == ".DOCX" || extension == ".XLS" || extension == ".XLSX"
+        || extension == ".mp3" || extension == ".wav" || extension == ".aiff" || extension == ".m4a" || extension == ".jpg" || extension == ".jpeg" || extension == ".png" || extension == ".svg"
+        || extension == ".MP3" || extension == ".WAV" || extension == ".AIFF" || extension == ".M4A" || extension == ".JPG" || extension == ".JPEG" || extension == ".PNG" || extension == ".SVG"
+    ) {
+        return true;
+    }
+    else {
+        return false;
+    }
+
+  
+}
+
+// ===========================================================================
+// AUTHOR          :Sri
+// CREATE DATE     :30-05-2016
+// PURPOSE         :sarch licence Details
+// SPECIAL NOTES   :
+// Module          : Complaint and Investigation      
+// ============================================================================
+//         Change History          
+//=============================================================================
+function getLicenseLookupComplaints(id) {
+    
+   
+   
+    //$("#btnSubmit").prop("disabled", true); because of this investigation business search is not working
+    var ErrorCount = 0;
+    //alert($("#txtLicensenumber").val());
+    //if ($('#txtZipExt_' + id).val() == "") {
+    //    $("#lblZipcodeForLic").show();
+    //}
+    //else {
+    $('#chkIsbusinessname').attr('checked', false);
+    $("#DivBSPManualInformation").hide();
+    $("#btnSubmit").hide();
+    $(".LblErrCityManadatory").hide();
+    $(".LblErrStateManadatory").hide();
+    
+
+    var dynamicPrifix = id;
+    $("#lblZipcodeForLic").hide();
+    var DBAName = $('#dbaName').val();
+    var AppId = $("#appId").val();
+    var MFNumber = $("#MFNumber").val();
+    var LicNumber = $("#txtLicensenumber").val();
+    var BusinessType = $("#BusinessType").val();
+    var Address = $('#address').val();
+
+    var entityName = $('#entityName').val();
+
+    //var zipcode = $('#txtZipExt_' + id).val();
+    //var city = ($('#ddlCityExt_' + id).val() == "Other") ? $("#OtherCity_" + id).val() : $('#ddlCityExt_' + id).val();
+    //var state = ($('#ddlStateExt_' + id).val() == "Other") ? $("#OtherState_" + id).val() : $('#ddlStateExt_' + id).val();
+
+    //var zipcode = $("#" + dynamicPrifix + "_Zip").val();
+    //var city = ($("#" + dynamicPrifix + "_City").val() == "Other") ? $("#" + dynamicPrifix + "_OtherCity").val() : $("#" + dynamicPrifix + "_City").val();
+    //var state = ($("#" + dynamicPrifix + "_State").val() == "Other") ? $("#" + dynamicPrifix + "_OtherState").val() : $("#" + dynamicPrifix + "_State").val();
+
+    var zipcode = $("#_Zip").val();
+    var city = $("#_City").val();
+    var state = $("#_State").val();
+    var county = $("#_County").val();
+
+    if (city == null) { city = ""; }
+    if (state == null) { state = ""; }
+    if (county == null) { county = ""; }
+
+    //var country = ($('#ddlCountryExt_' + id).val() == "Other") ? $("#OtherState_" + id).val() : $('#ddlStateExt_' + id).val();
+    var licenseType = $('#ddlRegOrLicType').val();
+
+    //if ((DBAName == "" || DBAName == undefined) && (MFNumber == "" || MFNumber == undefined) && (LicNumber == "" || LicNumber == undefined) && (zipcode == "" || zipcode == undefined) && (city == "" || city == undefined) && (Address == "" || Address == undefined) && (AppId == "" || AppId == undefined) && (state == "" || state == undefined)) {
+    //    ErrorCount = 1;
+    //}
+    // var ErrorCount = 0;
+    
+    $("#secondsearch input[type='text']").each(function () {
+
+        if ($(this).val() != "")
+            ErrorCount = ErrorCount + 1;
+    });
+    if ($("#_State").val() != "") {
+        ErrorCount = ErrorCount + 1;
+    }
+   
+    //if ($("#_County").val() != "") {
+    //    //$("#lblCounty").hide();
+    //    document.getElementById('err_lblCounty').classList.add('hidden');
+    //    ErrorCount = ErrorCount + 1;
+    //}
+    //else {
+    //    document.getElementById('err_lblCounty').classList.remove('hidden');
+    //    return false;
+    //}
+    if (businessSearchValidations() == true && ((ErrorCount >= 2 && (AppId == "" || AppId == undefined)) || (AppId != "" && AppId != undefined)) || LicNumber!="" ) {
+        var grid = $("#grdLicense").data('kendoGrid');
+
+        $("#divSelectOne").hide();
+        $("#DivBSPSearchGridResult").show();
+        $("#chkIsbusinessname").show();
+        $("#searchBack").show();
+        $("#secondsearch").hide();
+        $("#btnLicenseSearch").hide();
+        $.ajax({
+            type: "POST",
+            url: urlAction,
+            data: { "ZipCode": zipcode, "Address": Address, "DBAName": DBAName, "City": city, "State": state, "County": county, "ApplicationType": licenseType, "AppId": AppId, "MFNumber": MFNumber, "BusinessType": BusinessType, "LicNumber": LicNumber },
+            headers: {
+                'RequestVerificationToken': headers
+            },
+            success: function (data) {
+                //$("#grdLicense .k-grid-bottom .k-status a").addClass("k-loading");
+                //hideBlockedMask()
+                //$("#grdLicense .k-grid-bottom .k-status a").removeClass("k-loading");
+
+                CurrentSearchSelection = data;
+                var grid = $("#grdLicense").data("kendoGrid");
+                grid.dataSource.pageSize(5);
+
+                var dataSource = grid.dataSource;
+                var recordsOnCurrentView = dataSource.view().length;
+                var totalRecords = dataSource.total();
+
+                //  grid.total = data.length;
+                if (totalRecords > 0) {
+                    $("#divmsg").hide();
+                }
+                else {
+                }
+                if (totalRecords > 999) {
+                    $("#DataTooLargeErr").show();
+                }
+                else {
+                    $("#DataTooLargeErr").hide();
+                }
+                var dataSource = new kendo.data.DataSource({ data: data });
+                grid.ServerPaging = true;
+                grid.setDataSource(dataSource);
+                grid.dataSource.pageSize(5);
+                grid.dataSource.read();
+                lookupLicenseData = data;
+            },
+            error: function () {
+            }
+        });
+    } else {
+
+        if (ErrorCount >= 2 && (AppId == "" || AppId == undefined)) {
+            $("#divSelectOne").hide();
+
+        } else {
+            $("#divSelectOne").show();
+            //if ($("#appId").length > 0) {
+            //    $('#divSelectOne').text(PrivateBusSearchError);
+            //} else {
+            //    $('#divSelectOne').text(PublicBusSearchError);
+            //}
+        }
+        return false
+    }
+    //}
+    //else if (ErrorCount > 0) {
+    //    $("#divSelectOne").show();
+    //}
+
+
+}
+function getLicenseLookupExt(id) {
+    //$("#btnSubmit").prop("disabled", true); because of this investigation business search is not working
+    var ErrorCount = 0;
+    //alert($("#txtLicensenumber").val());
+    //if ($('#txtZipExt_' + id).val() == "") {
+    //    $("#lblZipcodeForLic").show();
+    //}
+    //else {
+    $('#chkIsbusinessname').attr('checked', false);
+    $("#DivBSPManualInformation").hide();
+    $("#btnSubmit").hide();
+    $(".LblErrCityManadatory").hide();
+    $(".LblErrStateManadatory").hide();
+
+    var dynamicPrifix = id;
+    $("#lblZipcodeForLic").hide();
+    var DBAName = $('#dbaName').val();
+    var AppId = $("#appId").val();
+    var MFNumber = $("#MFNumber").val();
+    var LicNumber = $("#txtLicensenumber").val();
+    var BusinessType = $("#BusinessType").val();
+    var Address = $('#address').val();
+    //var zipcode = $('#txtZipExt_' + id).val();
+    //var city = ($('#ddlCityExt_' + id).val() == "Other") ? $("#OtherCity_" + id).val() : $('#ddlCityExt_' + id).val();
+    //var state = ($('#ddlStateExt_' + id).val() == "Other") ? $("#OtherState_" + id).val() : $('#ddlStateExt_' + id).val();
+
+    var zipcode = $("#" + dynamicPrifix + "_Zip").val();
+    var city = ($("#" + dynamicPrifix + "_City").val() == "Other") ? $("#" + dynamicPrifix + "_OtherCity").val() : $("#" + dynamicPrifix + "_City").val();
+    var state = ($("#" + dynamicPrifix + "_State").val() == "Other") ? $("#" + dynamicPrifix + "_OtherState").val() : $("#" + dynamicPrifix + "_State").val();
+
+    if (city == null) { city = ""; }
+    if (state == null) { state = ""; }
+
+    //var country = ($('#ddlCountryExt_' + id).val() == "Other") ? $("#OtherState_" + id).val() : $('#ddlStateExt_' + id).val();
+    var licenseType = $('#ddlRegOrLicType').val();
+
+    //if ((DBAName == "" || DBAName == undefined) && (MFNumber == "" || MFNumber == undefined) && (LicNumber == "" || LicNumber == undefined) && (zipcode == "" || zipcode == undefined) && (city == "" || city == undefined) && (Address == "" || Address == undefined) && (AppId == "" || AppId == undefined) && (state == "" || state == undefined)) {
+    //    ErrorCount = 1;
+    //}
+    // var ErrorCount = 0;
+
+    $("#secondsearch input[type='text']").each(function () {
+
+        if ($(this).val() != "")
+            ErrorCount = ErrorCount + 1;
+    });
+    if (state != "") {
+        ErrorCount = ErrorCount + 1;
+    }
+
+    //if (city == null || city.length <= 0) {
+    //    $(".LblErrCityManadatory").show();
+    //    ErrorCount++;
+    //}
+    //if (state == null || state.length <= 0) {
+    //    $(".LblErrStateManadatory").show();
+    //    ErrorCount++;
+    //}
+
+    //var jsonData = new Object();
+    //jsonData["zipCode"] = zipcode;
+    //jsonData["Address"] = Address;
+    //jsonData["DBAName"] = DBAName;
+    //jsonData["City"] = city;
+    //jsonData["State"] = state;
+    //jsonData["ApplicationType"] = licenseType;
+    //jsonData["AppId"] = AppId;
+    //jsonData["MFNumber"] = MFNumber;
+    //jsonData["BusinessType"] = BusinessType;
+    //jsonData["LicNumber"] = LicNumber;
+
+    //if (ErrorCount == 0) {
+    if (businessSearchValidations() == true && ((ErrorCount >= 2 && (AppId == "" || AppId == undefined)) || (AppId != "" && AppId != undefined))) {
+        var grid = $("#grdLicense").data('kendoGrid');
+        $("#divSelectOne").hide();
+        $("#DivBSPSearchGridResult").show();
+        $.ajax({
+            type: "POST",
+            url: urlAction,
+            data: { "ZipCode": zipcode, "Address": Address, "DBAName": DBAName, "City": city, "State": state, "ApplicationType": licenseType, "AppId": AppId, "MFNumber": MFNumber, "BusinessType": BusinessType, "LicNumber": LicNumber },
+            headers: {
+                'RequestVerificationToken': headers
+            },
+            //data: JSON.stringify(jsonData),
+            dataType: "json",
+            //contentType: 'application/json; charset=utf-8',
+            cache: false,
+            beforeSend: function () {
+                showBlockedMask();
+                $("#grdLicense .k-grid-bottom .k-status a").addClass("k-loading");
+                grid.total = 0;
+                grid.dataBind(null);
+                //$("#grdLicense .t-grid-bottom .t-status-text").html("Displaying items 0 - 0 of 0");
+                // grid.total = 0;
+            },
+
+            success: function (data) {
+                hideBlockedMask()
+                $("#grdLicense .k-grid-bottom .k-status a").removeClass("k-loading");
+
+                CurrentSearchSelection = data;
+                var grid = $("#grdLicense").data("kendoGrid");
+                var dataSource = grid.dataSource;
+                var recordsOnCurrentView = dataSource.view().length;
+                var totalRecords = dataSource.total();
+
+
+               // grid.total = data.length;
+                if (totalRecords > 0) {
+                    $("#divmsg").hide();
+                }
+                else {
+                }
+                // grid.dataBind(data);
+                var dataSource = new kendo.data.DataSource({ data: data });
+                grid.setDataSource(dataSource);
+                grid.pageSize = 5;
+                grid.dataSource.read();
+
+                lookupLicenseData = data;
+            },
+            error: function () {
+            }
+        });
+    } else {
+
+        if (ErrorCount >= 2 && (AppId == "" || AppId == undefined)) {
+            $("#divSelectOne").hide();
+
+        } else {
+            $("#divSelectOne").show();
+            //if ($("#appId").length > 0) {
+            //    $('#divSelectOne').text(PrivateBusSearchError);
+            //} else {
+            //    $('#divSelectOne').text(PublicBusSearchError);
+            //}
+        }
+        return false
+    }
+    //}
+    //else if (ErrorCount > 0) {
+    //    $("#divSelectOne").show();
+    //}
+
+
+}
+//Business search validation
+function businessSearchValidations() {
+    var returnvalue = true;
+    if ($('#divBS .validatebusinesssearch').length > 0) {
+        returnvalue = false;
+    }
+
+    return returnvalue;
+}
+
+//Clear Business search data
+function showLicense() {
+    
+    $('#divlookupLicense').hide();
+    $('#divcomplaint').show();
+
+    $('#hideBusinessSearch').hide();
+    $('#hideinvestigationsection').show();
+    $('#dvDocFeeWorkItemDetails').show();
+    $('#btnSubmit').hide();
+    $('span.validatebusinesssearch').html('');
+    $('div.validatebusinesssearch').html('');
+    $('span.validateselectsearchitem').html('');
+    $('#divBS span').removeClass("validatebusinesssearch");
+    $('#divBS div').removeClass("validatebusinesssearch");
+
+    var grid = $("#grdLicense").data("kendoGrid");
+   // grid.total = 0;
+    // grid.dataBind(null);
+    var dataSource = new kendo.data.DataSource({ data: null });
+    grid.setDataSource(dataSource);
+    grid.pageSize = 5;
+    grid.dataSource.read();
+
+
+}
+/*  Name        : Surya - 22-sep-2014
+    Desc        : This function is for Alphanumeric characters only
+    ModifiedBy  : 
+    Desc        : 
+*/
+function checkAlphaNumeric(evt) {
+    var regex = new RegExp("^[A-Z a-z 0-9\b]+$");
+    var str = String.fromCharCode(!evt.charCode ? evt.which : evt.charCode);
+    var browser = 46;
+    if ((navigator.userAgent.indexOf("Firefox") != -1)) {
+        browser = 37;
+    }
+    else {
+        browser = 46;
+    }
+
+    if (regex.test(str) || evt.keyCode == 8 || evt.keyCode == 9 || evt.keyCode == 46 || evt.keyCode == browser) //evt.keyCode == 39,evt.keyCode == 13)
+    {
+        return true;
+    }
+
+    evt.preventDefault();
+    return false;
+}
+
+function validateAlphaNumeric(event) {
+    var regex = new RegExp("^[A-Z a-z 0-9\b]+$");
+    var str = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+       
+    if (regex.test(str)) {
+        return true;
+    }
+    event.preventDefault();
+    return false;
+}
+
+/*  Name        : srikanth - 24-sep-2016
+    Desc        : This function is for Alphanumeric characters  and allow + special chater also
+    ModifiedBy  : 
+    Desc        : TFS 1550
+*/
+function checkAlphaNumericAndSpecialcharacter(evt) {
+    var regex = new RegExp("^[A-Z a-z 0-9+\b]+$");
+    var str = String.fromCharCode(!evt.charCode ? evt.which : evt.charCode);
+    var browser = 46;
+    if ((navigator.userAgent.indexOf("Firefox") != -1)) {
+        browser = 37;
+    }
+    else {
+        browser = 46;
+    }
+
+    if (regex.test(str) || evt.keyCode == 8 || evt.keyCode == 9 || evt.keyCode == 46 || evt.keyCode == browser) //evt.keyCode == 39)
+    {
+        return true;
+    }
+
+    evt.preventDefault();
+    return false;
+}
+
+
+function checkAlphaNumericWithEnter(evt) {
+    var regex = new RegExp("^[A-Z a-z 0-9\b]+$");
+    var str = String.fromCharCode(!evt.charCode ? evt.which : evt.charCode);
+    var browser = 46;
+    if ((navigator.userAgent.indexOf("Firefox") != -1)) {
+        browser = 37;
+    }
+    else {
+        browser = 46;
+    }
+
+    if (regex.test(str) || evt.keyCode == 8 || evt.keyCode == 9 || evt.keyCode == 46 || evt.keyCode == 13 || evt.keyCode == browser) //evt.keyCode == 39)
+    {
+        return true;
+    }
+
+    evt.preventDefault();
+    return false;
+}
+
+//var IsExpErrorCountBS = 0; // Business search, When search button clicked
+//var IsExpErrorCountBSelected = 0; // Business search, When select business button clicked
+//function REValidation(controlId, expression, errLabel, moduleId) {
+
+//    if (expression.indexOf('-s') != -1) {
+//        expression = expression.replace("-s", "\\-\\s");
+//        //expression = expression.replace("s", "ss");
+//    }
+
+//    if ($("#" + controlId) != undefined) {
+//        if ($("#" + controlId).val().length > 0) {
+//            var ex = new RegExp(expression);
+//            var val = $("#" + controlId).val();
+//            var isMatch = ex.test(val);
+//            if (isMatch) {
+//                if ($("#" + errLabel).is(':visible')) {
+//                    if (moduleId == 1) {
+//                        IsExpErrorCountBS--;
+//                    }
+//                    if (moduleId == 2) {
+//                        IsExpErrorCountBSelected--;
+//                    }
+//                }
+//                $("#" + errLabel).hide();
+//            } else {
+//                if (!$("#" + errLabel).is(':visible')) {
+//                    if (moduleId == 1) {
+//                        IsExpErrorCountBS++;
+//                    }
+//                    if (moduleId == 2) {
+//                        IsExpErrorCountBSelected++;
+//                    }
+//                }
+//                $("#" + errLabel).show();
+//                $("#" + controlId).focus();
+//            }
+//        } else {
+//            if ($("#" + errLabel).is(':visible')) {
+//                if (moduleId == 1) {
+//                    IsExpErrorCountBS--;
+//                }
+//                if (moduleId == 2) {
+//                    IsExpErrorCountBSelected--;
+//                }
+//            }
+//            $("#" + errLabel).hide();
+//        }
+//    }
+//}
+
+function isNumber(evt) {
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        return false;
+    }
+    return true;
+}
+
+function checkAlphabets(evt) {
+    var regex = new RegExp("^[A-Z a-z\b]+$");
+    var str = String.fromCharCode(!evt.charCode ? evt.which : evt.charCode);
+    var browser = 46;
+    if ((navigator.userAgent.indexOf("Firefox") != -1)) {
+        browser = 37;
+    }
+    else {
+        browser = 46;
+    }
+
+    if (regex.test(str) || evt.keyCode == 8 || evt.keyCode == 9 || evt.keyCode == 46 || evt.keyCode == browser) //evt.keyCode == 39)
+    {
+        return true;
+    }
+
+    evt.preventDefault();
+    return false;
+}
+
+function MakeBlankTextbox(controlId) {
+    $("#" + controlId).hide();
+}
+
+
+function checkdate(input) {
+
+    input = input.trim();
+    var validformat = /^\d{2}\/\d{2}\/\d{4}$/ //Basic check for format validity
+    var returnval = false
+    if (!validformat.test(input)) {
+        //alert("Invalid Date Format. Please correct and submit again.")
+    }
+    else { //Detailed check for valid date ranges
+        var monthfield = input.split("/")[0]
+        var dayfield = input.split("/")[1]
+        var yearfield = input.split("/")[2]
+        var dayobj = new Date(yearfield, monthfield - 1, dayfield)
+        if ((dayobj.getMonth() + 1 != monthfield) || (dayobj.getDate() != dayfield) || (dayobj.getFullYear() != yearfield)) {
+            //alert("Invalid Day, Month, or Year range detected. Please correct and submit again.")
+        }
+        else
+            returnval = true
+    }
+    return returnval
+}
+
+function onlyNumbers(evt) {
+
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        if (charCode == 47) {
+            return true;
+        }
+        return false;
+    }
+}
+
+/*  Name        : Surya - 22-sep-2014
+    Desc        : This function is for Alphanumeric characters only
+    ModifiedBy  : 
+    Desc        : 
+*/
+//function checkAlphaNumeric(evt)
+//{
+//    var regex = new RegExp("^[A-Z a-z 0-9\b]+$");
+//    var str = String.fromCharCode(!evt.charCode ? evt.which : evt.charCode);   
+
+//    if (regex.test(str))
+//    {
+//    return true;
+//}
+//    evt.preventDefault();
+//    return false;
+//}
+
+
+function validateAlphanumaric() {
+
+}
+
+//Vijay
+///Check if all values of array are equal  
+Array.prototype.allValuesSame = function () {
+
+    for (var i = 1; i < this.length; i++) {
+        if (this[i] !== this[0])
+            return false;
+    }
+
+    return true;
+}
+
+
+//Validate numeric show error message
+//textboxcontrole:textID
+//errormsgcontrole:Error meg DIV id
+//errormsgdispay:Display error msg 
+//function validateNumerics(textboxcontrole, errormsgcontrole, errormsgdispay) {
+
+//    if (!(!isNaN(parseFloat($(textboxcontrole).val())) && isFinite($(textboxcontrole).val())) && $(textboxcontrole).val() != "") {
+//        $(errormsgcontrole).css('display', 'block');
+//        $(errormsgcontrole).text(errormsgdispay);
+//        return false;
+//    }
+//    else {
+//        $(errormsgcontrole).css('display', 'none');
+//        return true;
+//    }
+//}
+
+//function DateValidate(datepicValue, errormsgtagID) {
+//    var datePicker = $('#' + datepicValue).data("tDatePicker").inputValue.trim();
+//    if (datePicker != "") {
+//        if (validateDate(datePicker)) {
+//            var splitResult = datePicker.split('/');
+//            var MonthVal = splitResult[0];
+//            var DateVal = splitResult[1];
+//            var YearVal = splitResult[2];
+//            if (MonthVal > 12 || MonthVal < 1 || DateVal < 1 || DateVal > 31 || YearVal.charAt(0) == 0 || YearVal.length < 4) {
+//                $('#' + errormsgtagID).show();
+//                $('#' + errormsgtagID).removeClass("field-validation-error").removeClass("field-validation-valid").html("Please enter Valid Date");
+//                return false;
+//            }
+//            else {
+//                $('#' + errormsgtagID).hide();
+//                // return true;
+//            }
+//        } else {
+//            $('#' + errormsgtagID).show();
+//            $('#' + errormsgtagID).removeClass("field-validation-error").removeClass("field-validation-valid").html("Please enter Valid Date");
+//            return false;
+//        }
+//    } else {
+//        $('#' + errormsgtagID).hide();
+//        // return true;
+//    }
+//}
+
+//function validateDate(testdate) {
+//    var date_regex = /^\d{2}\/\d{2}\/\d{4}$/;
+//    return date_regex.test(testdate);
+//}
+
+//Authority based on product type
+function onChapterChange(SelecteDefaultId) {
+    var ChapterNumber = $("#ddlChapterNumber option:selected").val();
+    CallMethodWithHeader('GET', GetProductsByChapterId + "?ChapterId=" + ChapterNumber, null, headers, function (response) {
+        $("#ddlProductNumber option").remove();
+        $('#ddlProductNumber').append($('<option>', {
+            value: "",
+            text: "--Select--"
+        }));
+        if (response != null && response.length > 0) {
+            $.each(response, function (i, item) {
+                $('#ddlProductNumber').append($('<option>', {
+                    value: item.ProductId,
+                    text: item.ProductName
+                }));
+            });
+            $("#ddlProductNumber").val(SelecteDefaultId);
+            //onProductChange();
+        }
+    });
+}
+//Expand and collapse
+
+function ExpandandCollapse() {
+    $(".panel-group .panel .panel-title a.collapsed").each(function () { $(this).removeAttr("data-parent").removeAttr("href"); })
+
+
+    $(document).on("click", ".panel-group .panel .panel-title a", function (e) {
+        e.preventDefault();
+        $(".panel-group .panel .panel-collapse").each(function () { $(this).removeClass("in"); });
+        if ($(this).hasClass("collapsed")) {
+            $(".panel-group .panel .panel-title a").each(function () { $(this).addClass("collapsed"); });
+            $(this).removeClass("collapsed");
+            $(this).closest(".panel").find(".panel-collapse").addClass("in");
+        }
+        else {
+            $(".panel-group .panel .panel-title a").each(function () { $(this).addClass("collapsed"); });
+        }
+
+    });
+    $("#onLoadOpen").click();
+
+}
+
+
+$(document).ready(function () {
+
+
+
+    //Page Height Adjustment
+    function heightadujustment() {
+        var windowheight = $(window).height();
+        var total = windowheight - 144; // you can change the height
+        $(".content").css("min-height", total);
+    };
+
+    heightadujustment();
+});
+function getClosedCaseValue() {
+    if ($('#hdnIsClosedCase').val() != 'undefined' && $('#hdnIsClosedCase').val() == 'Yes') {
+        return $('#hdnIsClosedCase').val();
+    }
+    if ($('#hdnLegalCaseStatus').val() != 'undefined' && ($('#hdnLegalCaseStatus').val() == 'Case Closed' || $('#hdnLegalCaseStatus').val() == 'Case Dismissed')) {
+        return 'Yes';
+    }
+    if ($('#hdnHasViewAccess').val() != 'undefined' && $('#hdnHasViewAccess').val() == 'True') {
+        return 'Yes';
+    }
+    return 'No';
+  
+}
+
+function getViewAccess() {
+    if ($('#hdnIsViewOnlyUser').val() != 'undefined' && $('#hdnIsViewOnlyUser').val() != undefined) { 
+            return $('#hdnIsViewOnlyUser').val();
+    }     
+    return 'No';
+
+}
+
+function checkManipulationViolations(status, IsAccessible) {
+    /*const workItem = getWorkItemType();*/
+    
+    let canEdit = true;
+    let canAdd = true;
+    let canDelete = true;
+    
+    if ((status === "Forwarded to Supervisor for Review" && !IsAccessible)
+        || status === "Approved by Supervisor"
+    ) {
+        canEdit = false;
+        canAdd = false;
+        canDelete = false;
+    }
+    return { CanAdd: canAdd, CanEdit: canEdit, CanDelete: canDelete };
+}
+
+
+function isNotUndefinedOrNull(id) {
+    var obj = $('#' + id);
+    if (obj != undefined && obj != null) {
+        return false;
+    } else {
+        return true;
+    }
+}
