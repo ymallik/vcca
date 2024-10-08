@@ -30,7 +30,7 @@
 
 <body>
 
-    <form action="Publicuserdashboard.html">
+     <form action="Publicuserdashboard.html">
     <div class="body-content">
         <script src='https://www.google.com/recaptcha/api.js'></script>
 <div class="mt-10 mb-5">
@@ -80,22 +80,25 @@
                                             </label>
                                         </div>
                                     <div class="form-group mb-3 btn-wrapper">
-                                        <button class="btn tabc-btn primary-btn w-lg btn-custom waves-effect waves-light xs-pull-center full-width text-center" name="button" value="login">Login</button>
+                                        <button class="btn tabc-btn primary-btn w-lg btn-custom waves-effect waves-light xs-pull-center full-width text-center" name="dashboardlogin" value="dashboardlogin" type="Submit">Login</button>
                                     </div>
 
 
 
-                                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8NJnGX81EGNKpLmppARigAnJzxDqMzKwoe2v2WuJkgtt9trWEptIO3BiFgyIXzbvwGEhemytwvCnO3sEFZMNCZKt8J76aSSaFQmurlv18Bt0ZKDjB__acd9n4iIEaYftnNW-A5-vySf2YDldFyGjFMY" /><input name="RememberLogin" type="hidden" value="false"></form>
+                                </div>
 
-                            </div>
-
-                            <!--<div class="m-b-20 btn-wrapper sign-up">
+                            <!-- <div class="m-b-20 btn-wrapper sign-up">
 
                                 <span class="m-t-2">
                                     <span class="ng-scope font-bold font-16">New to CPMS?</span>
-                                    <a class="createAccount font-bold font-16" href="/PublicUser/SignUp">Sign up</a>
+                                    <a class="createAccount font-bold font-16" href="/PublicUser/SignUp">Create Medical Provider Account</a>
                                 </span>
-                            </div>-->
+                            </div> -->
+                         </form>
+                            <div class="form-group mb-3 btn-wrapper">
+                                <button class="btn tabc-btn primary-btn w-lg btn-custom waves-effect waves-light xs-pull-center full-width text-center" name="button" value="login" style="width: 100%; white-space: normal; font-size: 16px;" onclick="signup(event)">Create Medical Provider Account</button>
+                            </div>
+
                             <div class="m-b-20 btn-wrapper sign-up">
 
                                 <span class="m-t-2">
@@ -130,7 +133,14 @@
     </footer>
     <script src="/lib/jquery/jquery.js"></script>
     <script src="/lib/bootstrap/js/bootstrap.js"></script>
+    <script>
+
+    function signup(event) {
+        event.preventDefault();  // Prevent the form from being submitted
+        window.location.href = 'Signup.html';
+    }        
+    </script>
     
-</form>
+
 </body>
 </html>

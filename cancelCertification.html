@@ -1944,7 +1944,11 @@ DemoUser01@Patient Portal System
         <script>
         function goToPriscribe() 
         {
-        window.location.href = 'cancelpatientcertification.html'; // Replace with your target URL
+            const userConfirmed = confirm("Are you sure you want to cancel the certification?");
+
+            if (userConfirmed) {
+                window.location.href = 'cancelpatientcertification.html'; // Replace with your target URL
+            }
         }
         </script>
 

@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Identity</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="shortcut icon" href="./images/Logo.png" />
+    <link rel="shortcut icon" href="./images/favicon.png" />
     <link rel="stylesheet" href="./css/minton_css/bootstrap.min.css" />
     <link rel="stylesheet" href="./css/site.css" />
     <style type="text/css">
@@ -886,7 +886,7 @@
 
 <form action="SignupSuccessful.html" id="frmSignUp" method="post">    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <div class="text-center">
-            <h1 class="m-b-20 mt-4">Create a CPMS Account</h1>
+            <h1 class="m-b-20 mt-4">Create an Account</h1>
         </div>
     </div>
     <div class="offset-lg-3 offset-md-3 offset-sm-2 offset-xs-1 col-lg-6 col-md-6 col-sm-8 col-xs-10 p-lr-5 m-t-5 mobile-signup">
@@ -895,9 +895,8 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-lr-5">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-lr-5">
                         <p class="control-label">
-                            The following information will be used to create an account in the City Payment Management System (CPMS). Only one user can be created per email address. Once an account is created, you will not be able to change the username.<br />
-                        </p>
-                        <ul class="control-label">
+                            A practitioner of medicine or osteopathy, or a physician assistant, licensed by the Board of Medicine, or a nurse practitioner jointly licensed by the Board of Medicine and the Board of Nursing may provide a written certification for medical cannabis to a patient for treatment or to alleviate the symptoms of any diagnosed condition or disease determined by the practitioner to benefit from such use. Once you have successfully completed the enrollment process, you will be provided access to the written certification for medical cannabis.                        </p>
+<!--                         <ul class="control-label">
                             <li>
                                 Username must be at least six characters long and can have up to five letters and one underscore (_) or period (.) in the middle. Do not use spaces. Examples: John.Doe or John_Doe.<br />
 
@@ -909,7 +908,7 @@
                             <li>
                                 Input a phone number using only digits (special characters are not allowed). If you have a US phone number then input your 10-digit phone number, for example: 5690245876. If you have a Non-US phone number then input your country code and phone number, for example: 917648817248.
                             </li>
-                        </ul>
+                        </ul> -->
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-lr-5">
@@ -935,7 +934,7 @@
                                     <div class="col-md-12 card full-width">
                                         <div id="divrecaptcha"></div>
 
-                                        <div class="form-group row">
+<!--                                         <div class="form-group row">
                                             <div class="col-md-12 col-xs-12 m-t-10">
                                                 <label class="mandatory-star" for="UserName">Username</label>
                                                 <input autocomplete="off" class="form-control p-l-6 required" data-val="true" data-val-regex="Username must be at least six characters long and can have up to five letters and one underscore (_) or period (.) in the middle. Do not use spaces. Examples: John.Doe or John_Doe " data-val-regex-pattern="^[a-zA-Z0-9]&#x2B;([_\.]?[a-zA-Z0-9]&#x2B;){5,18}?$" data-val-required="The User Name field is required." id="txtUserName" maxlength="30" name="UserName" type="text" value="" />
@@ -944,7 +943,7 @@
                                                 <label class="field-validation-error text-danger" for="errorUserName" id="errorUserName" style="display:none;">Label</label>
                                             </div>
 
-                                        </div>
+                                        </div> -->
                                         <div class="form-group row">
                                             <div class="col-md-6 col-xs-12">
                                                 <label class="mandatory-star" for="FirstName">First Name</label>
@@ -971,20 +970,26 @@
                                                 <label class="field-validation-error text-danger" for="errorEmail" id="errorEmail" style="display:none;">Label</label>
                                             </div>
                                             <div class="col-md-6 col-xs-12">
-                                                <label class="mandatory-star" for="ConfirmEmailId">Confirm Email</label>
-                                                <input autocomplete="off" class="form-control p-l-6 required" data-val="true" data-val-equalto="The Email and Confirm Email do not match." data-val-equalto-other="*.EmailId" data-val-regex="Please enter valid Email Address" data-val-regex-pattern="^[a-zA-Z0-9]([_\.\-&#x2B;]*?[a-zA-Z0-9])*@[a-zA-Z0-9.-]&#x2B;\.[a-zA-Z]{2,}$" data-val-required="The Confirm Email field is required." id="txtConfEmail" maxlength="80" name="ConfirmEmailId" type="text" value="" />
+                                                <label class="mandatory-star" for="ConfirmEmailId">Date of Birth</label>
+                                                <input autocomplete="off" class="form-control p-l-6 required" data-val="true" data-val-equalto="The Email and Confirm Email do not match." data-val-equalto-other="*.EmailId" data-val-regex="Please enter valid Email Address" data-val-regex-pattern="^[a-zA-Z0-9]([_\.\-&#x2B;]*?[a-zA-Z0-9])*@[a-zA-Z0-9.-]&#x2B;\.[a-zA-Z]{2,}$" data-val-required="The Confirm Email field is required." id="txtConfEmail" maxlength="80" name="ConfirmEmailId" placeholder="MM/DD/YYYY" type="text" value="" />
                                                 <span class="field-validation-valid" data-valmsg-for="ConfirmEmailId" data-valmsg-replace="true"></span>
                                                 <label class="field-validation-error text-danger" for="errorConfEmail" id="errorConfEmail" style="display:none;">Label</label>
                                             </div>
                                         </div>
 
-                                        <div class="form-group row">
+                                        <!-- <div class="form-group row">
                                             <div class="col-md-6 col-xs-12">
                                                 <label for="Phone">Phone Number</label>
                                                 <input class="form-control" data-val="true" data-val-regex="Input a phone number using only digits (special characters are not allowed).&#xA;If you have a US phone number then input your 10 - digit phone number, for example: 5690245876.&#xA;If you have a Non - US phone number then input your country code and phone number, for example: 917648817248." data-val-regex-pattern="\d{10,15}" id="txtPhone" maxlength="15" name="Phone" title="Enter Phone number" type="text" value="" />
                                                 <label class="field-validation-error text-danger" for="errorPhone" id="errorPhone" style="display:none;">Label</label>
                                             </div>
-                                        </div>
+
+                                            <div class="col-md-6 col-xs-12">
+                                                <label for="Phone">Date of Birth</label>
+                                                <input class="form-control" data-val="true" data-val-regex="Input a phone number using only digits (special characters are not allowed).&#xA;If you have a US phone number then input your 10 - digit phone number, for example: 5690245876.&#xA;If you have a Non - US phone number then input your country code and phone number, for example: 917648817248." data-val-regex-pattern="\d{10,15}" id="txtPhone" maxlength="15" name="Phone" title="Enter Date of Birth" type="text" value="" />
+                                                <label class="field-validation-error text-danger" for="errorPhone" id="errorPhone" style="display:none;">Label</label>
+                                            </div>
+                                        </div> -->
 
 
                                         <div class="form-group row">
@@ -992,9 +997,9 @@
                                                 <label class="mandatory-star" for="Password">Password</label>
                                                 <div id="dvPassword" class="input-group">
                                                     <input autocomplete="off" class="form-control p-l-6 required" data-val="true" data-val-regex="Password must be at least eight characters long. It must contain at least one uppercase letter, one lowercase letter, one number and one symbol." data-val-regex-pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*#?&amp;])[A-Za-z\d$@$!%*#?&amp;]{8,50}$" data-val-required="The Password field is required." id="txtPassword" maxlength="50" name="Password" type="password" />
-                                                    <div class="input-group-addon">
+<!--                                                     <div class="input-group-addon">
                                                         <a class="ion-ios7-eye inputGroupCustom" id="showPassword"></a>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
 
                                                 <div id="passwordValdiationMessage">
@@ -1012,9 +1017,9 @@
                                                 <label class="mandatory-star" for="ConfirmPassword">Confirm Password</label>
                                                 <div id="dvConPassword" class="input-group">
                                                     <input class="form-control p-l-6 required" data-val="true" data-val-equalto="The password and confirmation password do not match." data-val-equalto-other="*.Password" data-val-required="The Confirm Password field is required" id="txtConPassword" maxlength="50" name="ConfirmPassword" type="password" />
-                                                    <div class="input-group-addon">
+<!--                                                     <div class="input-group-addon">
                                                         <a class="ion-ios7-eye inputGroupCustom" id="showConfirmPassword"></a>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
 
                                                 <div id="passwordConfirmValdiationMessage">
@@ -1030,13 +1035,25 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group m-t-20">
+                                        <div class="form-group row">
+                                            <div class="col-md-6 col-xs-12">
+                                                <label class="mandatory-star" for="FirstName">Virginia State Medical License</label>
+                                                <input autocomplete="off" class="form-control p-l-6 required" data-val="true" data-val-length="The max length cannot exceed 40 characters. " data-val-length-max="40" data-val-regex="Please use alphabets,Hyphens,Apostrophes only." data-val-regex-pattern="^[a-zA-Z]&#x2B;[a-zA-Z &#x27;-]*$" data-val-required="The First Name field is required." id="txtFName" maxlength="40" name="FirstName" type="text" value="" />
+                                                <label class="normal-font field-validation-error" for="ValidationMessage" id="lblFirstNameMsg" style="display:none;">ValidationMessage</label>
+                                                <span class="field-validation-valid" data-valmsg-for="FirstName" data-valmsg-replace="true"></span>
+                                                <label class="field-validation-error text-danger" for="errorFName" id="errorFName" style="display:none;">Label</label>
+                                            </div>
+
+                                            
+                                        </div>
+
+<!--                                         <div class="form-group m-t-20">
                                             <div class="col m-b-20">
                                                 <h4 class="page-title mandatory-star">Security Questions</h4>
                                             </div>
-                                        </div>
+                                        </div> -->
 
-                                        <div class="form-group row">
+<!--                                         <div class="form-group row">
                                             <div class="col-md-6 col-xs-12">
                                                 <label for="SecurityQuestion1">Security Question 1</label>
                                                 <select class="form-control required p-l-6" data-val="true" data-val-required="The Security Question field is required" id="ddlSecQuest1" name="SecurityQuestion1"><option value="">-------Select---------</option>
@@ -1062,8 +1079,8 @@
                                                 <span class="field-validation-valid" data-valmsg-for="SecurityAnswer1" data-valmsg-replace="true"></span>
                                                 <label class="field-validation-error text-danger" for="errorAmswer1" id="errorAmswer1" style="display:none;">Label</label>
                                             </div>
-                                        </div>
-                                        <div class="form-group row">
+                                        </div> -->
+<!--                                         <div class="form-group row">
                                             <div class="col-md-6 col-xs-12">
                                                 <label for="SecurityQuestion2">Security Question 2</label>
                                                 <select class="form-control required p-l-6" data-val="true" data-val-required="The Security Question field is required" id="ddlSecQuest2" name="SecurityQuestion2"><option value="">-------Select---------</option>
@@ -1087,9 +1104,9 @@
                                                 <span class="field-validation-valid" data-valmsg-for="SecurityAnswer2" data-valmsg-replace="true"></span>
                                                 <label class="field-validation-error text-danger" for="errorAmswer2" id="errorAmswer2" style="display:none;">Label</label>
                                             </div>
-                                        </div>
+                                        </div> -->
 
-                                        <div class="form-group row">
+ <!--                                        <div class="form-group row">
                                             <div class="col-md-6 col-xs-12">
                                                 <label for="SecurityQuestion3">Security Question 3</label>
                                                 <select class="form-control required p-l-6" data-val="true" data-val-required="The Security Question field is required" id="ddlSecQuest3" name="SecurityQuestion3"><option value="">-------Select---------</option>
@@ -1113,7 +1130,7 @@
                                                 <span class="field-validation-valid" data-valmsg-for="SecurityAnswer3" data-valmsg-replace="true"></span>
                                                 <label class="field-validation-error text-danger" for="errorAmswer3" id="errorAmswer3" style="display:none;">Label</label>
                                             </div>
-                                        </div>
+                                        </div> -->
 
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center m-t-20  p-lr-5 mb-1 mobile-signup-btn" id="noMasterButton">
                                             <button class="btn secondary-btn m-b-5 xs-pull-center mr-2 mobile-btn" id="btnSignUpCancel" name="btnSignUpCancel" type="button" onclick="SignUpCancel()">
