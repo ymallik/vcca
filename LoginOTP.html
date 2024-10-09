@@ -30,7 +30,7 @@
 
 <body>
 
-     <form action="LoginOTP.html">
+     <form action="Publicuserdashboard.html">
     <div class="body-content">
         <script src='https://www.google.com/recaptcha/api.js'></script>
 <div class="mt-10 mb-5">
@@ -58,6 +58,11 @@
 
                             </div>
 
+                            <div class="form-group mb-3">
+                                <h6 class="font-bold">A one time password (OTP) has been sent to your registered email.</h6>
+                                <!--<input class="form-control" placeholder="Enter your Username" autofocus type="text" data-val="true" data-val-required="The Username field is required." id="Username" name="Username" size=20 value="467912">-->
+                            </div>
+
                             <div id="divrecaptcha"></div>
                             <div class="panel-body login-body">
 
@@ -66,21 +71,21 @@
 
 
                                     <div class="form-group mb-3">
-                                        <label class="form-label" for="Username">Username</label>
-                                        <input class="form-control" placeholder="Enter your Username" autofocus type="text" data-val="true" data-val-required="The Username field is required." id="Username" name="Username" size=20 value="Athena.Baldwin@gov2biz.com">
+                                        <label class="form-label" for="Username">OTP</label>
+                                        <input class="form-control" placeholder="Enter your Username" autofocus type="text" data-val="true" data-val-required="The Username field is required." id="Username" name="Username" size=20 value="467912">
                                     </div>
-                                    <div class="form-group mb-3">
+                                    <!--<div class="form-group mb-3">
                                         <label class="form-label" for="Password">Password</label>
                                         <input type="password" class="form-control" placeholder="Enter your password" autocomplete="off" data-val="true" data-val-required="The Password field is required." id="Password" name="Password" size=20 value="Alberto">
-                                    </div>
-                                        <div class="form-group login-remember btn-wrapper">
+                                    </div>-->
+                                        <!--<div class="form-group login-remember btn-wrapper">
                                             <label class="form-label" for="RememberLogin">
                                                 <input type="checkbox" data-val="true" data-val-required="The RememberLogin field is required." id="RememberLogin" name="RememberLogin" value="true">
                                                 Remember My Login
                                             </label>
-                                        </div>
+                                        </div>-->
                                     <div class="form-group mb-3 btn-wrapper">
-                                        <button class="btn tabc-btn primary-btn w-lg btn-custom waves-effect waves-light xs-pull-center full-width text-center" name="dashboardlogin" value="dashboardlogin" type="Submit">Generate OTP</button>
+                                        <button class="btn tabc-btn primary-btn w-lg btn-custom waves-effect waves-light xs-pull-center full-width text-center" name="dashboardlogin" value="dashboardlogin" type="Submit">Login</button>
                                     </div>
 
 
@@ -95,15 +100,15 @@
                                 </span>
                             </div> -->
                          </form>
-                            <div class="form-group mb-3 btn-wrapper">
+                            <!--<div class="form-group mb-3 btn-wrapper">
                                 <button class="btn tabc-btn primary-btn w-lg btn-custom waves-effect waves-light xs-pull-center full-width text-center" name="button" value="login" style="width: 100%; white-space: normal; font-size: 16px;" onclick="signup(event)">Create Medical Provider Account</button>
-                            </div>
+                            </div>-->
 
                             <div class="m-b-20 btn-wrapper sign-up">
 
                                 <span class="m-t-2">
-                                    <span class="ng-scope font-bold font-16">Forgot password?</span>
-                                    <a class="createAccount font-bold font-16" href="/PublicUser/ForgotPasswordPageOne">Click here</a>
+                                    <span class="ng-scope font-bold font-16">Didn't receive OTP?</span>
+                                    <a class="createAccount font-bold font-16" href="#">Click here</a>
                                 </span>
                             </div>
                         </div>
